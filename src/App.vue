@@ -1,13 +1,25 @@
 <template>
   <Hero />  
+  <div>data.empresa.name</div>
 </template>
 
 <script>
 import Hero from './components/Hero.vue'
+import db from './store/db.js'
 export default {
   name: 'App',
   components: {
     Hero
+  },
+
+  data() {
+    return {
+      data: db
+    }
+  },
+
+  mounted() {
+    console.log(this.data)
   }
 }
 </script>
