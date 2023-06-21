@@ -11,8 +11,7 @@
       <div class="accordion-body">
         <p class="description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae perspiciatis cum accusamus non tenetur, aut architecto eligendi possimus voluptatem atque eos suscipit est delectus nobis consectetur accusantium quidem praesentium omnis.</p>
       </div>
-    </div>
-     
+    </div>     
   </div>
 </template>
 <script>

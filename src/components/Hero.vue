@@ -1,6 +1,7 @@
 <template>
-  <div class="container">
-    <div class="company__info">
+  <div class="hero">
+    <div class="hero-image"></div>
+    <div class="hero-info">
       <img src="../assets/images/logo.jpg"/>
       <h2>CHICKEN SC</h2>
       <span class="city">
@@ -10,12 +11,12 @@
         <h4>SÃO JOSÉ DO RIO PARDO - SP</h4>
       </span>
     </div>
-    <div class="company__status">
+    <div class="hero-status">
       <span class="status"> FECHADO </span>
       <span> RETIRAR | ENTREGAR </span>
       <span class="time">
         <i><fa icon="clock" /></i>
-        <label>00:10:00</label>
+        <span>00:10:00</span>
       </span>
     </div>
   </div>
@@ -27,35 +28,47 @@ export default {
 }
 </script>
 <style>
-  .container {
+  .hero {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
   }
 
-  .company__info  img {
+  .hero-image {
+    position: absolute;
+    width: 100%;
+    height: 200px;
+    z-index: -1;
+    top: 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url('../assets/images/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .hero-info img {
     width: 120px;
   }
 
-  .company__info .city {
+  .hero-info .city {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
   }
 
-  .company__info .city i {
+  .hero-info .city i {
     color: crimson;
   }
 
-  .company__status {
+  .hero-status {
     display: flex;
     gap: 15px;
     font-size: 15px;
   }
 
-  .company__status .time i {
+  .hero-status .time i {
     padding: 5px;
   }
 </style>
