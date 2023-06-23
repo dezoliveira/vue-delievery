@@ -1,8 +1,12 @@
 <template>
   <div class="hero">
-    <div class="hero-image"></div>
+    <div class="hero-image">
+
+    </div>
     <div class="hero-info">
-      <img src="../assets/images/logo.jpg"/>
+      <div class="logo">
+        <img class="" src="../assets/images/logo.jpg"/>
+      </div>
       <h2>CHICKEN SC</h2>
       <span class="city">
         <i>
@@ -47,8 +51,30 @@ export default {
     background-position: center;
   }
 
-  .hero-info img {
-    width: 120px;
+  .hero-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .hero-info .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    outline: 10px solid crimson;
+    padding: 5px;
+    background: #fff;
+    margin-top: 50px;
+    width: 100px;
+    border-radius: 5%;
+    gap: 15px;
+  }
+
+  .hero-info .logo img {
+    width: 100%;
   }
 
   .hero-info .city {

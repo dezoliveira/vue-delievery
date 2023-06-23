@@ -1,6 +1,8 @@
 <template>
   <Hero />
     <Accordion />
+    <Accordion />
+
   <!-- <div v-for="products in data.products" :key="data.products.id"> -->
   <!--   {{ products.name }} -->
   <!-- </div> -->
