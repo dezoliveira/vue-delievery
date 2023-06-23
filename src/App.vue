@@ -1,4 +1,5 @@
 <template>
+  <Modal />
   <Hero />
     <Accordion />
     <Accordion />
@@ -9,6 +10,7 @@
 </template>
 
 <script>
+import Modal from './components/Modal.vue'
 import Hero from './components/Hero.vue'
 import Accordion from './components/Accordion.vue'
 import db from './store/db.js'
@@ -16,7 +18,8 @@ export default {
   name: 'App',
   components: {
     Hero,
-    Accordion
+    Accordion,
+    Modal
   },
 
   data() {
