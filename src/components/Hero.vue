@@ -1,13 +1,14 @@
 <template>
+  <Modal v-show="showModal" @close="toggleModal"/>
   <div class="hero">
     <div class="hero-image">
 
     </div>
     <div class="hero-info">
-      <div class="logo">
-        <img class="" src="../assets/images/logo.jpg"/>
+      <div class="logo" @click="toggleModal">
+        <img src="../assets/images/logo3.jpg"/>
       </div>
-      <h2>CHICKEN SC</h2>
+      <h2>KFC São José</h2>
       <span class="city">
         <i>
           <fa icon="location-dot" />
@@ -27,11 +28,31 @@
 
 </template>
 <script>
+import Modal from './Modal.vue';
 export default {
-  
+  components: {
+    Modal
+  },
+
+  data() {
+    return {
+      showModal: false
+    }
+  },
+
+  methods: {
+    toggleModal() {
+      this.showModal = !this.showModal
+    }
+  }, 
 }
 </script>
 <style>
+  :root {
+    --color: rgba(30, 30, 30);
+    --bgColor: rgba(245, 245, 245);
+  }
+
   .hero {
     display: flex;
     align-items: center;
@@ -42,10 +63,12 @@ export default {
   .hero-image {
     position: absolute;
     width: 100%;
-    height: 200px;
+    height: 140px;
     z-index: -1;
     top: 0;
-    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url('../assets/images/background.jpg');
+    background-image: 
+      linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), 
+      url('../assets/images/background.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -56,32 +79,36 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 10px;
   }
 
   .hero-info .logo {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    outline: 10px solid crimson;
-    padding: 5px;
-    background: #fff;
-    margin-top: 50px;
+    
     width: 100px;
-    border-radius: 5%;
-    gap: 15px;
+    padding: 5px;
+
+    border-radius: 50%;
+    background: 
+      radial-gradient(hsl(0 0% 0% / 15%) 60%, transparent 0),
+      radial-gradient(white 65%, transparent 0),
+      linear-gradient(to top right, orange, deeppink);
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   }
 
   .hero-info .logo img {
     width: 100%;
+    border-radius: 50%;
+    border: 1px solid #fff;
   }
 
   .hero-info .city {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 10px;
   }
 
   .hero-info .city i {

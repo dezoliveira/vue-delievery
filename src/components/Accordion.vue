@@ -1,7 +1,7 @@
 <template>
   <div class="accordion">
     <div class="accordion-item">
-      <h4>Chickens</h4>
+      <h4>Baldes</h4>
       <i @click="toggleCollapse">
         <fa v-if="collapse" icon="caret-up" />
         <fa v-else icon="caret-down" />
@@ -44,7 +44,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 10px;
   }
 
   .accordion-collapse {

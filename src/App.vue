@@ -1,9 +1,6 @@
 <template>
-  <Modal />
   <Hero />
-    <Accordion />
-    <Accordion />
-
+  <Accordion />
   <!-- <div v-for="products in data.products" :key="data.products.id"> -->
   <!--   {{ products.name }} -->
   <!-- </div> -->
@@ -41,12 +38,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 50px;
   padding: 20px;
 
   /* Passar o flex e gap para a home no router */
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
 }
 </style>
