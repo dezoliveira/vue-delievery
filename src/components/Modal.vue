@@ -7,16 +7,22 @@
         </i>
       </span>
       <h1 class="modal-title">
-        Tiitle
+        Horários
       </h1>
       <div class="modal-body">
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur, voluptates iusto? Voluptas atque id est quibusdam sint perspiciatis nobis temporibus saepe, distinctio explicabo facere nam rerum. A eum quasi cumque.</p>
+        <!-- <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur, voluptates iusto? Voluptas atque id est quibusdam sint perspiciatis nobis temporibus saepe, distinctio explicabo facere nam rerum. A eum quasi cumque.</p> -->
+        <Table />
       </div>
     </div>
   </div>
 </template>
 <script>
-export default {
+import Table from './Table.vue'
+export default { 
+  components: {
+    Table
+  },
+
   methods: {
     closeModal() {
       this.$emit('close')
@@ -40,10 +46,16 @@ export default {
 
   .modal { 
     position: relative;
-    width: 80%;
-    height: 80%;
-    padding: 25px;
+    width: 90%;
+    height: 90%;
+    padding: 15px;
     background-color: #fff;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 30px;
     /* animation: open 0.5s; */
   }  
 

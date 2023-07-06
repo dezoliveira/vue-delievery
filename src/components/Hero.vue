@@ -1,5 +1,5 @@
 <template>
-  <Modal v-show="showModal" @close="toggleModal"/>
+  <Modal v-show="showModal" @close="toggleModal" />
   <div class="hero">
     <div class="hero-image">
 
@@ -29,9 +29,11 @@
 </template>
 <script>
 import Modal from './Modal.vue';
+import Table from './Table.vue'
 export default {
   components: {
-    Modal
+    Modal,
+    Table
   },
 
   data() {
