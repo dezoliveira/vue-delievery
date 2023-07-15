@@ -6,11 +6,6 @@
         <th>Retirar</th>
         <th>Entregar</th>
       </tr>
-      <!-- <tr>
-        <td>00:10:00</td>
-        <td>Sim</td>
-        <td>Nao</td>
-      </tr> -->
       <tr 
         v-for="stat in status" 
         :key="stat.id"
