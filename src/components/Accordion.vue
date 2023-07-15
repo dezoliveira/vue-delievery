@@ -1,17 +1,29 @@
 <template>
-  <div class="accordion">
+  <div
+    class="accordion" 
+    ref="category"
+    v-for="category in categories" 
+    :key="category.id"
+    @click="toggleCollapse(category.id)"
+  > 
     <div class="accordion-item">
-      <h4>Baldes</h4>
-      <i @click="toggleCollapse">
-        <fa v-if="collapse" icon="caret-up" />
+      <h4>{{category.descricao}}</h4>
+      <i>
+        <fa v-if="collapse && activeItem === category.id" icon="caret-up" />
         <fa v-else icon="caret-down" />
       </i>
     </div>
-    <div v-show="collapse" class="accordion-collapse">
+    <div v-show="collapse && activeItem === category.id" class="accordion-collapse">
       <div class="accordion-body">
-        <p class="description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae perspiciatis cum accusamus non tenetur, aut architecto eligendi possimus voluptatem atque eos suscipit est delectus nobis consectetur accusantium quidem praesentium omnis.</p>
+        <ul class="description">
+          <li>Produto 1</li>
+          <li>Produto 2</li>
+          <li>Produto 3</li>
+          <li>Produto 4</li>
+          <li>Produto 5</li>
+        </ul>
       </div>
-    </div>     
+    </div>    
   </div>
 </template>
 <script>
@@ -19,14 +31,32 @@
 
     data() {
       return {
-        collapse: false
+        collapse: false,
+        activeItem: '',
+        categories: []
       }
     },
     
     methods: {
-      toggleCollapse() {
+      toggleCollapse(categoryId) {
+        if(this.activeItem !== categoryId){
+          this.collapse = false
+        }
+    
+        this.activeItem = categoryId
         this.collapse = !this.collapse
       },
+
+      async loadCategories() {
+        const req = await fetch('http://localhost:82/api/categorias.php?emp=1')
+        const data = await req.json()
+        console.log(data)
+        this.categories = data
+      }
+    },
+
+    mounted() {
+      this.loadCategories()
     }
 
   }
