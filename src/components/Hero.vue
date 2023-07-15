@@ -8,12 +8,12 @@
       <div class="logo" @click="toggleModal">
         <img src="../assets/images/logo3.jpg"/>
       </div>
-      <h2>KFC São José</h2>
+      <h2>{{company.Fantasia}}</h2>
       <span class="city">
         <i>
           <fa icon="location-dot" />
         </i>
-        <h4>SÃO JOSÉ DO RIO PARDO - SP</h4>
+        <h4>{{company.Cidade}}</h4>
       </span>
     </div>
     <div class="hero-status">
@@ -38,15 +38,27 @@ export default {
 
   data() {
     return {
-      showModal: false
+      showModal: false,
+      company: []
     }
   },
 
   methods: {
     toggleModal() {
       this.showModal = !this.showModal
+    },
+
+    async loadCompany() {
+      const req = await fetch('http://localhost:82/api/empresa.php?emp=1')
+      const data = await req.json()
+      console.log(data)
+      this.company = data
     }
   }, 
+
+  mounted() {
+    this.loadCompany()
+  }
 }
 </script>
 <style>
