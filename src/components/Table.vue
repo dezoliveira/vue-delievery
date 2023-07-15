@@ -6,10 +6,22 @@
         <th>Retirar</th>
         <th>Entregar</th>
       </tr>
-      <tr>
+      <!-- <tr>
         <td>00:10:00</td>
         <td>Sim</td>
         <td>Nao</td>
+      </tr> -->
+      <tr 
+        v-for="stat in status" 
+        :key="stat.id"
+      >
+        <td>{{stat.tempoentrega}}</td>
+        <td>
+          {{ flagToString(stat.AgendaPedido) }}
+        </td>
+        <td>
+          {{ flagToString(stat.ativaentrega) }}
+        </td>
       </tr>
     </table>
     <table class="table-days">
@@ -18,40 +30,13 @@
         <th>Abertura</th>
         <th>Fechamento</th>
       </tr>
-      <tr>
-        <td>DOM</td>
-        <td>17:00:00</td>
-        <td>22:00:00</td>
-      </tr>
-      <tr>
-        <td>SEG</td>
-        <td>17:00:00</td>
-        <td>22:00:00</td>
-      </tr>
-      <tr>
-        <td>TER</td>
-        <td>17:00:00</td>
-        <td>22:00:00</td>
-      </tr>
-      <tr>
-        <td>QUA</td>
-        <td>17:00:00</td>
-        <td>22:00:00</td>
-      </tr>
-      <tr>
-        <td>QUI</td>
-        <td>17:00:00</td>
-        <td>22:00:00</td>
-      </tr>
-      <tr>
-        <td>SEX</td>
-        <td>17:00:00</td>
-        <td>22:00:00</td>
-      </tr>
-      <tr>
-        <td>SAB</td>
-        <td>17:00:00</td>
-        <td>22:00:00</td>
+      <tr
+        v-for="param in params" 
+        :key="param.id"
+      >
+        <td>{{param.dia}}</td>
+        <td>{{param.abertura}}</td>
+        <td>{{param.fechamento}}</td>
       </tr>
     </table>
   </div>
@@ -59,6 +44,52 @@
 
 <script>
 export default {
+  data() {
+    return {
+      params : [],
+      status : []
+    }
+  },
+
+  methods: {
+    async loadParams() {
+      const req = await fetch('http://localhost:82/api/parametros.php?emp=1')
+      const data = await req.json()
+      console.log(data)
+      this.params = data
+      this.todayStatus(data)
+    },
+
+    async todayStatus(data) {
+      let today = new Date()
+      let day = today.getDay()
+      let status = []
+      const daysOfWeek = []
+
+      for (let d in data) {
+        daysOfWeek.push(data[d].dia)
+      }
+
+      status = data.filter(
+        (x) => (x.dia === daysOfWeek[day])
+      )
+
+      this.status = status
+    },
+
+    flagToString(flag) {
+      const flags = {
+        'S' : 'Sim',
+        'N' : 'Não'
+      }[flag]
+      
+      return flags
+    }
+  }, 
+
+  mounted() {
+    this.loadParams()
+  },
 
 }
 </script>
