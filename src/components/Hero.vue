@@ -30,6 +30,7 @@
 <script>
 import Modal from './Modal.vue';
 import Table from './Table.vue'
+
 export default {
   components: {
     Modal,

@@ -15,19 +15,21 @@
     </div>
     <div v-show="collapse && activeItem === category.id" class="accordion-collapse">
       <div class="accordion-body">
-        <ul class="description">
-          <li>Produto 1</li>
-          <li>Produto 2</li>
-          <li>Produto 3</li>
-          <li>Produto 4</li>
-          <li>Produto 5</li>
-        </ul>
+        <ProductList 
+          :categoryId="category.id"
+        />
       </div>
     </div>    
   </div>
 </template>
 <script>
+  import ProductList from './ProductList.vue'
+
   export default{
+    name: 'Accordion',
+    components: {
+      ProductList
+    },
 
     data() {
       return {
