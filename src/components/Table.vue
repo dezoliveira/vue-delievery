@@ -25,14 +25,16 @@
         <th>Abertura</th>
         <th>Fechamento</th>
       </tr>
-      <tr
+      <tbody
         v-for="param in params" 
         :key="param.id"
       >
-        <td>{{param.dia}}</td>
-        <td>{{param.abertura}}</td>
-        <td>{{param.fechamento}}</td>
-      </tr>
+        <tr :class="{ active: this.today === param.dia }">
+          <td >{{param.dia}}</td>
+          <td>{{param.abertura}}</td>
+          <td>{{param.fechamento}}</td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </template>
@@ -42,7 +44,8 @@ export default {
   data() {
     return {
       params : [],
-      status : []
+      status : [],
+      today: null
     }
   },
 
@@ -70,6 +73,7 @@ export default {
       )
 
       this.status = status
+      this.today = status[0].dia
     },
 
     flagToString(flag) {
@@ -118,11 +122,21 @@ export default {
 
   }
 
-  table tr:nth-child(even) {
+  /* Testar semântica da tabela */
+  /*table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }*/
+
+  table tbody:nth-child(even) {
     background-color: #f2f2f2;
   }
 
   table.table-status tr:not(:first-child) {
     background-color: #fff;
+  }
+
+  .active {
+    background: #4ade80;
+    color: #fff;
   }
 </style>
