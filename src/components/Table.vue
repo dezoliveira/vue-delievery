@@ -118,10 +118,6 @@ export default {
     color: #fff;
   }
 
-  table td {
-
-  }
-
   /* Testar semântica da tabela */
   /*table tr:nth-child(even) {
     background-color: #f2f2f2;

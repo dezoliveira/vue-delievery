@@ -1,12 +1,11 @@
 <template>
+  <Header />
   <Hero />
   <Accordion />
-  <!-- <div v-for="products in data.products" :key="data.products.id"> -->
-  <!--   {{ products.name }} -->
-  <!-- </div> -->
 </template>
 
 <script>
+import Header from './components/Header.vue'
 import Modal from './components/Modal.vue'
 import Hero from './components/Hero.vue'
 import Accordion from './components/Accordion.vue'
@@ -15,6 +14,7 @@ import db from './store/db.js'
 export default {
   name: 'App',
   components: {
+    Header,
     Hero,
     Accordion,
     Modal
@@ -39,12 +39,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 50px;
-  padding: 20px;
-
   /* Passar o flex e gap para a home no router */
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  /* gap: 10px */
 }
 </style>

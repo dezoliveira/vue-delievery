@@ -71,16 +71,15 @@ export default {
   .hero {
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
   }
 
   .hero-image {
     position: absolute;
-    width: 100%;
+    width: 100vw;
     height: 140px;
     z-index: -1;
-    top: 0;
+    
     background-image: 
       linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), 
       url('../assets/images/background.jpg');
@@ -95,6 +94,7 @@ export default {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    margin-top: 80px;
   }
 
   .hero-info .logo {

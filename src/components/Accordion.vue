@@ -1,25 +1,27 @@
 <template>
-  <div
-    class="accordion" 
-    ref="category"
-    v-for="category in categories" 
-    :key="category.id"
-    @click="toggleCollapse(category.id)"
-  > 
-    <div class="accordion-item">
-      <h4>{{category.descricao}}</h4>
-      <i>
-        <fa v-if="collapse && activeItem === category.id" icon="caret-up" />
-        <fa v-else icon="caret-down" />
-      </i>
-    </div>
-    <div v-show="collapse && activeItem === category.id" class="accordion-collapse">
-      <div class="accordion-body">
-        <ProductList 
-          :categoryId="category.id"
-        />
+  <div class="container">
+    <div
+      class="accordion" 
+      ref="category"
+      v-for="category in categories" 
+      :key="category.id"
+      @click="toggleCollapse(category.id)"
+    > 
+      <div class="accordion-item">
+        <i>
+          <fa v-if="collapse && activeItem === category.id" icon="chevron-down" />
+          <fa v-else icon="chevron-right" />
+        </i>
+        <h4>{{category.descricao}}</h4>
       </div>
-    </div>    
+      <div v-show="collapse && activeItem === category.id" class="accordion-collapse">
+        <div class="accordion-body">
+          <ProductList 
+            :categoryId="category.id"
+          />
+        </div>
+      </div>    
+    </div>
   </div>
 </template>
 <script>
@@ -33,8 +35,8 @@
 
     data() {
       return {
-        collapse: false,
-        activeItem: '',
+        collapse: true,
+        activeItem: '1',
         categories: []
       }
     },
@@ -63,13 +65,21 @@
 
   }
 </script>
-<style>
+<style scoped>
+  .container {
+    padding: 10px;
+  }
+  
   .accordion {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+  }
+
+  .accordion-body {
+    width: 100%;
   }
 
   .accordion-item {
@@ -79,7 +89,12 @@
     gap: 10px;
   }
 
-  .accordion-collapse {
-    text-align: justify;
+  .accordion-item h4, i {
+    color: crimson;
+    font-weight: bold;
+  }
+
+  .accordion-body {
+    text-align: initial;
   }
 </style>
