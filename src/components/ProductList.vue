@@ -69,9 +69,15 @@ export default {
     },
 
     formatValue(value) {
-      if (value) {
-        return parseInt(value).toFixed(2)
+      let newValue = value
+
+      if (newValue !== null) {
+        newValue = 'R$ ' + parseInt(value).toFixed(2).toString().replace('.', ',')
+      } else {
+        newValue = 'valor idisponivel no momento'
       }
+
+      return newValue
     }
   },
 
@@ -83,13 +89,14 @@ export default {
 </script>
 <style>
   .container {
-    width: 53vh;
+    
   }
 
   .card-body {
-    display: flex;
+    /* display: flex;
     align-items: center;
     justify-content: space-between;
+    */
   }
 
   .card-body .container {

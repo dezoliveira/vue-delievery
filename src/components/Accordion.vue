@@ -71,6 +71,9 @@
 <style scoped>
   .container {
     padding: 10px;
+    /* border: 1px solid black;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px; */
   }
   
   .accordion {
@@ -79,7 +82,6 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    padding: 5px 5px;
   }
 
   .accordion-body {
@@ -91,7 +93,7 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 5px 0;
+    padding: 10px 0;
   }
 
   .accordion-item h4, i {
@@ -101,5 +103,9 @@
 
   .accordion-body {
     text-align: initial;
+  }
+
+  .accordion-collapse {
+    width: 100%;
   }
 </style>
