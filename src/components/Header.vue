@@ -1,13 +1,13 @@
 <template>
   <navbar class="container">
     <nav class="logo">
-      <img src="../assets/images/logo3.jpg" />
+      <h1>VueDelievery</h1>
     </nav>
     <nav class="city">
+      <h4>São José do Rio Pardo</h4>
       <i>
         <fa icon="location-dot" />
       </i>
-      <h4>São José do Rio Pardo</h4>
     </nav>
   </navbar>
 </template>
@@ -36,7 +36,11 @@ export default {
 
   .logo {
     color: #fff;
-    width: 32px;
+  }
+
+  .logo h1 {
+
+    font-weight: 500;
   }
   
   .city {

@@ -5,15 +5,18 @@
       ref="category"
       v-for="category in categories" 
       :key="category.id"
-      @click="toggleCollapse(category.id)"
     > 
-      <div class="accordion-item">
+      <div 
+        class="accordion-item" 
+        @click="toggleCollapse(category.id)"
+      >
         <i>
           <fa v-if="collapse && activeItem === category.id" icon="chevron-down" />
           <fa v-else icon="chevron-right" />
         </i>
         <h4>{{category.descricao}}</h4>
       </div>
+      <hr v-show="!collapse" />
       <div v-show="collapse && activeItem === category.id" class="accordion-collapse">
         <div class="accordion-body">
           <ProductList 
@@ -76,6 +79,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    padding: 5px 5px;
   }
 
   .accordion-body {
@@ -87,6 +91,7 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
+    padding: 5px 0;
   }
 
   .accordion-item h4, i {
