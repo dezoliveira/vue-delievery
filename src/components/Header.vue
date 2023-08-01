@@ -1,7 +1,9 @@
 <template>
   <navbar class="container">
     <nav class="logo">
-      <h1>VueDelievery</h1>
+      <a href="#">
+        <h1>VueDelievery</h1>
+      </a>
     </nav>
     <nav class="city">
       <h4>São José do Rio Pardo</h4>
@@ -21,7 +23,6 @@ export default {
     position: -webkit-sticky; /* Safari */
     position: sticky;
     top: 0;
-    left: 0;
 
     width: 100%;
     height: 50px;

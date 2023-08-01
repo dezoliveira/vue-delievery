@@ -24,6 +24,7 @@
         <span>00:10:00</span>
       </span>
     </div>
+    <!-- <div class="is-opening">Estabelecimento Aberto!😋</div> -->
   </div>
 
 </template>
@@ -72,20 +73,21 @@ export default {
     display: flex;
     align-items: center;
     flex-direction: column;
+    padding: 20px;
+    color: #fff;
+    /*position: relative;*/
   }
 
   .hero-image {
     position: absolute;
+    top: 0;
     width: 100vw;
-    height: 140px;
-    z-index: -1;
-    
-    background-image: 
-      linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), 
-      url('../assets/images/background.jpg');
+    height: 100vw;
+    z-index: -100;
+    background-image: linear-gradient(rgb(0 0 0 / 70%), rgb(0 0 0)), url('/src/assets/images/background.jpg');
     background-size: cover;
+    /* background-attachment: fixed; */
     background-repeat: no-repeat;
-    background-position: center;
   }
 
   .hero-info {
@@ -94,7 +96,6 @@ export default {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin-top: 80px;
   }
 
   .hero-info .logo {
@@ -138,5 +139,13 @@ export default {
 
   .hero-status .time i {
     padding: 5px;
+  }
+
+  .is-opening{
+    background-color: #4ade80;
+    padding: 5px 15px;
+    position: absolute;
+    bottom: -15px;
+    border-radius: 5px;
   }
 </style>

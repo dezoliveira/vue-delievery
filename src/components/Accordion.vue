@@ -70,10 +70,11 @@
 </script>
 <style scoped>
   .container {
+    width: 100%;
     padding: 10px;
-    /* border: 1px solid black;
+    background-color: #fff;
     border-top-left-radius: 15px;
-    border-top-right-radius: 15px; */
+    border-top-right-radius: 15px;
   }
   
   .accordion {
