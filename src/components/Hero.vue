@@ -8,23 +8,28 @@
       <div class="logo" @click="toggleModal">
         <img src="../assets/images/logo3.jpg"/>
       </div>
-      <h2>{{company.Fantasia}}</h2>
-      <span class="city">
+      <div>
+        <h2>{{company.Fantasia}}</h2>
+      <!-- <span class="city">
         <i>
           <fa icon="location-dot" />
         </i>
         <h4>{{company.Cidade}}</h4>
+      </span> -->
+      <span>
+        <h4>Rede de Fastfood, restaurante</h4>
       </span>
+      </div>
     </div>
     <div class="hero-status">
-      <span class="status"> FECHADO </span>
+      <span class="status"> ABERTO </span>
       <span> RETIRAR | ENTREGAR </span>
       <span class="time">
         <i><fa icon="clock" /></i>
-        <span>00:10:00</span>
+        00:10:00
       </span>
     </div>
-    <!-- <div class="is-opening">Estabelecimento Aberto!😋</div> -->
+    <div class="is-opening">Estabelecimento Aberto!😋</div>
   </div>
 
 </template>
@@ -73,9 +78,10 @@ export default {
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding: 20px;
+    padding: 20px 10px 40px 10px;
+    gap: 15px;
     color: #fff;
-    /*position: relative;*/
+    position: relative;
   }
 
   .hero-image {
@@ -92,7 +98,7 @@ export default {
 
   .hero-info {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: center;
     justify-content: center;
     gap: 10px;
@@ -103,7 +109,7 @@ export default {
     align-items: center;
     justify-content: center;
     
-    width: 100px;
+    width: 70px;
     padding: 5px;
 
     border-radius: 50%;
@@ -141,11 +147,18 @@ export default {
     padding: 5px;
   }
 
+  .hero-status span {
+    font-size: 12px;
+    border: 1px solid #fff;
+    padding: 5px;
+    border-radius: 5px;
+  }
+
   .is-opening{
     background-color: #4ade80;
     padding: 5px 15px;
     position: absolute;
     bottom: -15px;
-    border-radius: 5px;
+    border-radius: 15px;
   }
 </style>

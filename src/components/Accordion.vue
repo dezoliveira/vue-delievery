@@ -71,7 +71,7 @@
 <style scoped>
   .container {
     width: 100%;
-    padding: 10px;
+    padding: 20px 10px 10px 10px;
     background-color: #fff;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;

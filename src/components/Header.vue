@@ -25,7 +25,7 @@ export default {
     top: 0;
 
     width: 100%;
-    height: 50px;
+    height: 40px;
     background: #10b981;
 
     display: flex;
