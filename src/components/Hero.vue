@@ -17,19 +17,41 @@
         <h4>{{company.Cidade}}</h4>
       </span> -->
       <span>
-        <h4>Rede de Fastfood, restaurante</h4>
+        <h4>{{company.Complemento}}</h4>
       </span>
       </div>
     </div>
-    <div class="hero-status">
-      <span class="status"> ABERTO </span>
+    <div 
+      class="hero-status"
+      v-for="stat in status"
+      :key="stat.id"
+    >
+      <span class="status"> 
+        {{ this.isOpen ? 'Aberto' : 'Fechado' }} 
+      </span>
       <span> RETIRAR | ENTREGAR </span>
       <span class="time">
         <i><fa icon="clock" /></i>
-        00:10:00
+        {{ stat.tempoentrega }}
       </span>
     </div>
-    <div class="is-opening">Estabelecimento Aberto!😋</div>
+    <!-- <div class="is-opening" :class="{ 'open-message': this.isOpen }">
+      {{ 
+        this.isOpen ? 
+          'Estabelecimento Aberto!😋' 
+        : 'Estabelecimento Fechado!😋' 
+      }}
+    </div> -->
+    <div v-if="this.isOpen" 
+      class="is-opening open-message"
+    >
+      Estabelecimento Aberto!😋
+    </div>
+    <div v-else
+      class="is-opening close-message"
+    >
+      Estabelecimento Fechado!😕 
+    </div>
   </div>
 
 </template>
@@ -46,7 +68,10 @@ export default {
   data() {
     return {
       showModal: false,
-      company: []
+      company: [],
+      params : [],
+      status : [],
+      isOpen: false
     }
   },
 
@@ -60,15 +85,61 @@ export default {
       const data = await req.json()
       console.log(data)
       this.company = data
+    },
+
+    async loadParams() {
+      const req = await fetch('http://localhost:82/api/parametros.php?emp=1')
+      const data = await req.json()
+      console.log(data)
+      this.params = data
+      this.todayStatus(data)
+    },
+
+    async todayStatus(data) {
+      let today = new Date()
+      let day = today.getDay()
+      let status = []
+      const daysOfWeek = []
+
+      for (let d in data) {
+        daysOfWeek.push(data[d].dia)
+      }
+
+      status = data.filter(
+        (x) => (x.dia === daysOfWeek[day])
+      )
+
+      this.status = status
+     
+      this.hourStatus(status)
+
+      console.log('status', status)
+      console.log('today', this.today)
+    },
+
+    async hourStatus(status) {
+      let today = new Date()
+      let timeNow = today.toLocaleTimeString()
+      let open = status[0].abertura
+      let closed = status[0].fechamento
+
+      if (parseInt(timeNow) > parseInt(open) && 
+          parseInt(timeNow) < parseInt(closed)
+      ) {
+        this.isOpen = true
+      } else {
+        this.isOpen = false
+      }
     }
   }, 
 
   mounted() {
     this.loadCompany()
+    this.loadParams()
   }
 }
 </script>
-<style>
+<style scoped>
   :root {
     --color: rgba(30, 30, 30);
     --bgColor: rgba(245, 245, 245);
@@ -78,6 +149,7 @@ export default {
     display: flex;
     align-items: center;
     flex-direction: column;
+    margin-top: 40px;
     padding: 20px 10px 40px 10px;
     gap: 15px;
     color: #fff;
@@ -155,10 +227,17 @@ export default {
   }
 
   .is-opening{
-    background-color: #4ade80;
     padding: 5px 15px;
     position: absolute;
     bottom: -15px;
     border-radius: 15px;
+  }
+
+  .open-message {
+    background-color: #4ade80;
+  }
+
+  .close-message {
+    background-color: red;
   }
 </style>

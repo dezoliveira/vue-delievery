@@ -128,6 +128,6 @@ export default {
   }
 
   hr {
-    width: calc(100vw - 20%);
+    width: 100%;
   }
 </style>
