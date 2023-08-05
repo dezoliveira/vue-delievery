@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <Tray>
     <div
       class="accordion" 
       ref="category"
@@ -25,15 +25,18 @@
         </div>
       </div>    
     </div>
-  </div>
+  </Tray>
+ 
 </template>
 <script>
   import ProductList from './ProductList.vue'
+  import Tray from './Tray.vue'
 
   export default{
     name: 'Accordion',
     components: {
-      ProductList
+      ProductList,
+      Tray
     },
 
     data() {
@@ -69,13 +72,13 @@
   }
 </script>
 <style scoped>
-  .container {
+  /*.container {
     width: 100%;
     padding: 20px 10px 10px 10px;
     background-color: #fff;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-  }
+  }*/
   
   .accordion {
     width: 100%;

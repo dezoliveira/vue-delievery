@@ -42,6 +42,8 @@ export default {
   /* Passar o flex e gap para a home no router */
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   /* gap: 10px */
 }
 </style>
