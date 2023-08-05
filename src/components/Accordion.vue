@@ -72,6 +72,7 @@
   }
 </script>
 <style scoped>
+  /* <!-- * Movido para component Tray --> */
   /*.container {
     width: 100%;
     padding: 20px 10px 10px 10px;

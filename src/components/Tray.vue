@@ -11,7 +11,7 @@ export default {
   },
 }
 </script>
-<style>
+<style scoped>
   .container {
     width: 100%;
     padding: 20px 10px 10px 10px;
