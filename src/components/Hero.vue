@@ -6,7 +6,17 @@
     </div>
     <div class="hero-info">
       <div class="logo" @click="toggleModal">
-        <img src="../assets/images/logo3.jpg"/>
+        <!-- <img src="../assets/images/logo.jpg"/> -->
+        <img 
+          v-if="this.isLoaded" 
+          src="../assets/images/logo.jpg" 
+          @load="onImgLoad"
+        />
+        <img 
+          v-else 
+          src="../assets/images/logo_default.jpg" 
+          @load="onImgLoad"
+        />
       </div>
       <div>
         <h2>{{company.Fantasia}}</h2>
@@ -26,13 +36,34 @@
       v-for="stat in status"
       :key="stat.id"
     >
-      <span class="status"> 
-        {{ this.isOpen ? 'Aberto' : 'Fechado' }} 
+      <div class="status"> 
+        <!-- {{ this.isOpen ? 'Aberto' : 'Fechado' }}  -->
+        <span 
+          v-if="this.isOpen"
+          class="open-status"
+        >
+          Aberto
+        </span>
+        <span 
+          v-else
+          class="close-status"
+        >
+          Fechado
+        </span>
+      </div>
+      <span class="delivery">
+        <label>Entrega ? </label> 
+        <label><i><fa icon="motorcycle" /></i>{{ flagToString(stat.ativaentrega) }}</label>
       </span>
-      <span> RETIRAR | ENTREGAR </span>
+      <span class="withdraw">
+        <label>Retirada ? </label> 
+        <label><i><fa icon="person-walking" /></i>{{ flagToString(stat.AgendaPedido) }}</label>
+      </span>
       <span class="time">
-        <i><fa icon="clock" /></i>
-        {{ stat.tempoentrega }}
+        <label>Tempo Entrega:</label>
+        <label>
+          <i><fa icon="clock" /></i>{{ stat.tempoentrega }}
+        </label>
       </span>
     </div>
     <!-- <div class="is-opening" :class="{ 'open-message': this.isOpen }">
@@ -71,7 +102,8 @@ export default {
       company: [],
       params : [],
       status : [],
-      isOpen: false
+      isOpen: false,
+      isLoaded: false,  
     }
   },
 
@@ -110,11 +142,8 @@ export default {
       )
 
       this.status = status
-     
       this.hourStatus(status)
-
-      console.log('status', status)
-      console.log('today', this.today)
+      console.log(status)
     },
 
     async hourStatus(status) {
@@ -130,6 +159,19 @@ export default {
       } else {
         this.isOpen = false
       }
+    },
+
+    async onImgLoad() {
+      this.isLoaded = true
+    },
+    
+    flagToString(flag) {
+      const flags = {
+        'S' : 'Sim',
+        'N' : 'Não'
+      }[flag]
+      
+      return flags
     }
   }, 
 
@@ -182,6 +224,7 @@ export default {
     justify-content: center;
     
     width: 70px;
+    height: 70px;
     padding: 5px;
 
     border-radius: 50%;
@@ -210,20 +253,29 @@ export default {
   }
 
   .hero-status {
-    display: flex;
-    gap: 15px;
+    gap: 10px;
     font-size: 15px;
-  }
-
-  .hero-status .time i {
-    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(30, 30, 30, 0.5);
+    border-radius: 5px;
+    padding: 5px 10px;
   }
 
   .hero-status span {
     font-size: 12px;
-    border: 1px solid #fff;
     padding: 5px;
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-status span label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
   }
 
   .is-opening{
@@ -233,11 +285,16 @@ export default {
     border-radius: 15px;
   }
 
-  .open-message {
+  .open-status {
+    background-color: crimson;
+  }
+
+  .open-message, .open-status {
     background-color: #4ade80;
   }
 
-  .close-message {
+  .close-message, .close-status {
     background-color: red;
   }
+
 </style>
