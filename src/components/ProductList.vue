@@ -48,6 +48,7 @@ export default {
   props: {
     categoryId: null
   },
+
   data() {
     return {
       groups : [],
@@ -78,7 +79,7 @@ export default {
       }
 
       return newValue
-    }
+    },
   },
 
   mounted() {
@@ -88,9 +89,7 @@ export default {
 }
 </script>
 <style>
-  .container {
-    
-  }
+  .container {}
 
   .card-body {
     /* display: flex;
