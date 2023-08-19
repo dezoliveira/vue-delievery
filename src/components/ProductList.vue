@@ -31,18 +31,20 @@ export default {
   data() {
     return {
       groups : [],
+      API_URL : ''
     }
   },
 
   methods: {
     async loadGroups() {
-      const req = await fetch("http://localhost:82/api/grupos.php?emp=1")
+      const req = await fetch(`${this.API_URL}/grupos.php?emp=1`)
       const data = await req.json()
       this.groups = data
     },
   },
 
   mounted() {
+    this.API_URL = process.env.VUE_APP_API_URL
     this.loadGroups()
   }
 }

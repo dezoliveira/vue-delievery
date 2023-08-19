@@ -51,6 +51,7 @@ export default {
       showModal: false,
       company: [],
       isLoaded: false,  
+      API_URL: ''
     }
   },
 
@@ -60,7 +61,7 @@ export default {
     },
 
     async loadCompany() {
-      const req = await fetch('http://localhost:82/api/empresa.php?emp=1')
+      const req = await fetch(`${this.API_URL}/empresa.php?emp=1`)
       const data = await req.json()
       console.log(data)
       this.company = data
@@ -72,6 +73,7 @@ export default {
   }, 
 
   mounted() {
+    this.API_URL = process.env.VUE_APP_API_URL
     this.loadCompany()
   }
 }

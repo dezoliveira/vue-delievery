@@ -44,13 +44,14 @@ export default {
 
   data() {
     return {
-      products : []
+      products : [],
+      API_URL : ''
     }
   },
 
   methods: {
     async loadProducts() {
-      const req = await fetch("http://localhost:82/api/mercadorias.php?emp=1")
+      const req = await fetch(`${this.API_URL}/mercadorias.php?emp=1`)
       const data = await req.json()
       this.products = data
     },
@@ -69,6 +70,7 @@ export default {
   },
 
   mounted() {
+    this.API_URL = process.env.VUE_APP_API_URL
     this.loadProducts()
   }
 

@@ -63,12 +63,13 @@ export default {
       status : [],
       isOpen: false,
       isLoaded: false, 
+      API_URL : ''
     }
   },
 
   methods: {
     async loadParams() {
-      const req = await fetch('http://localhost:82/api/parametros.php?emp=1')
+      const req = await fetch(`${this.API_URL}/parametros.php?emp=1`)
       const data = await req.json()
       console.log(data)
       this.params = data
@@ -121,6 +122,7 @@ export default {
   },
 
   mounted() {
+    this.API_URL = process.env.VUE_APP_API_URL
     this.loadParams()
   }
 }

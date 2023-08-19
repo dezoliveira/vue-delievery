@@ -43,7 +43,8 @@
       return {
         collapse: true,
         activeItem: '1',
-        categories: []
+        categories: [],
+        API_URL : ''
       }
     },
     
@@ -58,7 +59,7 @@
       },
 
       async loadCategories() {
-        const req = await fetch('http://localhost:82/api/categorias.php?emp=1')
+        const req = await fetch(`${this.API_URL}/categorias.php?emp=1`)
         const data = await req.json()
         console.log(data)
         this.categories = data
@@ -66,6 +67,7 @@
     },
 
     mounted() {
+      this.API_URL = process.env.VUE_APP_API_URL
       this.loadCategories()
     }
 
