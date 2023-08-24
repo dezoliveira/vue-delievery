@@ -1,40 +1,42 @@
 <template>
-  <ul>
-    <li 
-      v-for="product in products"
-      :key="product.Codigo"
-      :id="product.Codigo"
-    >            
-      <div 
-        v-if="groupCodigo === product.idgrupo" 
-        class="card"
-      >
-        <div class="card-header">
-          
-        </div>
-        <div class="card-body">
-          <div class="product-details">
-            <span>{{ product.Descricao }}</span>
-            <label>Observação:</label>
-            <span> 
-              {{ 
-                product.Observacao ? 
-                  product.Observacao 
-                : 'Indisponível' 
-              }} 
-            </span>
-            <span class="product-price">
-              {{ formatValue(product.Venda) }}
+  <div v-if="products">
+    <ul>
+      <li 
+        v-for="product in products"
+        :key="product.Codigo"
+        :id="product.Codigo"
+      >            
+        <div 
+          v-if="groupCodigo === product.idgrupo" 
+          class="card"
+        >
+          <div class="card-header">
+            
+          </div>
+          <div class="card-body">
+            <div class="product-details">
+              <span>{{ product.Descricao }}</span>
+              <label>Observação:</label>
+              <span> 
+                {{ 
+                  product.Observacao ? 
+                    product.Observacao 
+                  : 'Indisponível' 
+                }} 
+              </span>
+              <span class="product-price">
+                {{ formatValue(product.Venda) }}
+              </span>
+            </div>
+            <span class="product-img">
+              <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.portaldofranchising.com.br%2Fwp-content%2Fuploads%2F2017%2F10%2Fkfc.jpg&f=1&nofb=1&ipt=83571c81ece60eae4693cd0d86d267a339ae59a8f12d19913250d57a31342cbc&ipo=images" />
             </span>
           </div>
-          <span class="product-img">
-            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.portaldofranchising.com.br%2Fwp-content%2Fuploads%2F2017%2F10%2Fkfc.jpg&f=1&nofb=1&ipt=83571c81ece60eae4693cd0d86d267a339ae59a8f12d19913250d57a31342cbc&ipo=images" />
-          </span>
         </div>
-      </div>
-      <hr v-show="groupCodigo === product.idgrupo"/>
-    </li>
-  </ul>
+        <hr v-show="groupCodigo === product.idgrupo"/>
+      </li>
+    </ul>
+  </div>
 </template>
 <script>
 export default {

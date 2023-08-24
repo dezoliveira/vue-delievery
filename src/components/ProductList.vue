@@ -1,21 +1,26 @@
 <template>
-  <div 
-    class="container" 
-    v-for="group in groups" 
-    :key="group.Codigo"
-  > 
-    <div v-if="categoryId === group.idcategoria">
-      <h1> 
-        <strong>
-          {{ group.Descricao }}
-        </strong> 
-      </h1> 
-      <hr />
-      <ProductCard 
-        :groupCodigo="group.Codigo"
-      />
+  <div v-if="groups">
+    <div 
+      class="container" 
+      v-for="group in groups" 
+      :key="group.Codigo"
+    > 
+      <div v-if="categoryId === group.idcategoria">
+        <h1> 
+          <strong>
+            {{ group.Descricao }}
+          </strong> 
+        </h1> 
+        <hr />
+        <ProductCard 
+          :groupCodigo="group.Codigo"
+        />
+      </div>
     </div>
   </div>
+  <v-else>
+    Oops! nenhum produto a ser exibido 😢
+  </v-else>
 </template>
 <script>
 import ProductCard from './ProductCard.vue'

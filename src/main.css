@@ -5,6 +5,21 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+  text-decoration: none;
+  list-style: none;
+}
+
+a {
+  color: #fff;
+}
+
+hr {
+  color: #e4e4e7;
+  border: 1px solid #e4e4e7;
+}
+
+img {
+  width: 100%;
 }
 
 body {
