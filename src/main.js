@@ -6,9 +6,10 @@ import '../src/main.css'
 import { Library, library } from '@fortawesome/fontawesome-svg-core'
 import { faChevronRight, faChevronDown, faClock, faLocationDot, faClose, faMotorcycle, faPersonWalking } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import router from './router'
 
 library.add(faChevronRight, faChevronDown, faLocationDot, faClock, faClose, faMotorcycle, faPersonWalking)
 
-createApp(App)
+createApp(App).use(router)
   .component("fa", FontAwesomeIcon)
   .mount('#app')
