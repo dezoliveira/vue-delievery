@@ -1,18 +1,37 @@
 <template>
   <Header />
-  <router-view/>
+  <Hero />
+  <Accordion />
 </template>
+
 <script>
-import Header from '@/components/Header.vue'
-import Home from '@/views/Home.vue'
+import Header from './components/Header.vue'
+import Modal from './components/Modal.vue'
+import Hero from './components/Hero.vue'
+import Accordion from './components/Accordion.vue'
+import db from './store/db.js'
+
 export default {
   name: 'App',
   components: {
     Header,
-    Home,
+    Hero,
+    Accordion,
+    Modal
+  },
+
+  data() {
+    return {
+      data: db
+    }
+  },
+
+  mounted() {
+    console.log(this.data)
   }
 }
 </script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -27,9 +46,5 @@ export default {
   justify-content: center;
 
   /* gap: 10px */
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>
