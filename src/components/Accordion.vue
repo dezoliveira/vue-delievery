@@ -26,7 +26,6 @@
       </div>    
     </div>
   </Tray>
- 
 </template>
 <script>
   import ProductList from './ProductList.vue'
@@ -69,7 +68,7 @@
     mounted() {
       this.API_URL = process.env.VUE_APP_API_URL
       this.loadCategories()
-    }
+    },
 
   }
 </script>

@@ -1,15 +1,12 @@
 <template>
-  <div v-if="products">
+  <div v-if="products.length">
     <ul>
       <li 
-        v-for="product in products"
+        v-for="product in activeProducts"
         :key="product.Codigo"
         :id="product.Codigo"
       >            
-        <div 
-          v-if="groupCodigo === product.idgrupo" 
-          class="card"
-        >
+        <div class="card">
           <div class="card-header">
             
           </div>
@@ -74,6 +71,14 @@ export default {
   mounted() {
     this.API_URL = process.env.VUE_APP_API_URL
     this.loadProducts()
+  },
+
+  computed: {
+    activeProducts() {
+      return this.products.filter((product) => {
+        return product.idgrupo === this.groupCodigo
+      })
+    }
   }
 
 }

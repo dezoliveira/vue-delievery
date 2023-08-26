@@ -1,21 +1,19 @@
 <template>
-  <div v-if="groups">
+  <div v-if="groups.length">
     <div 
       class="container" 
-      v-for="group in groups" 
+      v-for="group in activeGroups" 
       :key="group.Codigo"
     > 
-      <div v-if="categoryId === group.idcategoria">
-        <h1> 
-          <strong>
-            {{ group.Descricao }}
-          </strong> 
-        </h1> 
-        <hr />
-        <ProductCard 
-          :groupCodigo="group.Codigo"
-        />
-      </div>
+      <h1> 
+        <strong>
+          {{ group.Descricao }}
+        </strong> 
+      </h1> 
+      <hr />
+      <ProductCard 
+        :groupCodigo="group.Codigo"
+      />
     </div>
   </div>
   <v-else>
@@ -51,6 +49,14 @@ export default {
   mounted() {
     this.API_URL = process.env.VUE_APP_API_URL
     this.loadGroups()
+  },
+
+  computed: {
+    activeGroups() {
+      return this.groups.filter((group) => {
+        return group.idcategoria === this.categoryId
+      })
+    }
   }
 }
 </script>
