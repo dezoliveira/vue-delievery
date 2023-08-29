@@ -1,9 +1,26 @@
 <template>
   <navbar class="container">
     <nav class="logo">
-      <a href="#">
+      <!-- <a href="#">
         <h1>VueDelievery</h1>
-      </a>
+      </a> -->
+      <router-link :to="{ name: 'home' }">
+        <span 
+          v-if="currentRouterName !== 'home'"
+          style="
+            display: flex; 
+            gap: 5px
+          "
+        >
+          <i>
+            <fa icon="arrow-left"/>
+          </i>
+          <h1>Voltar</h1>
+        </span>
+        <span v-else>
+          <h1>VueDelievery</h1>
+        </span>
+      </router-link>
     </nav>
     <nav class="city">
       <h4>São José do Rio Pardo</h4>
@@ -15,7 +32,11 @@
 </template>
 <script>
 export default {
-
+  computed: {
+    currentRouterName() {
+      return this.$route.name
+    }
+  }
 }
 </script>
 <style scoped>
@@ -42,7 +63,6 @@ export default {
   }
 
   .logo h1 {
-
     font-weight: 500;
   }
   

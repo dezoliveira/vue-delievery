@@ -10,7 +10,7 @@ export default {
   components: {
     Header,
     Home,
-  }
+  },
 }
 </script>
 <style>
@@ -28,9 +28,5 @@ export default {
   justify-content: center;
 
   /* gap: 10px */
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>

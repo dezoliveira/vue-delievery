@@ -8,6 +8,7 @@ import Hero from '@/components/Hero.vue'
 import Accordion from '@/components/Accordion.vue'
 
 export default {
+  name: 'Home',
   components: {
     Hero,
     Accordion,
