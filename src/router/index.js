@@ -7,9 +7,10 @@ const routes = [
     component: () => import('@/views/Home.vue')
   },
   {
-    path: '/about',
-    name: 'about',
-    component: () => import('@/views/About.vue')
+    path: '/addProducts/:id',
+    name: 'AddProducts',
+    props: true,
+    component: () => import('@/views/AddProducts.vue')
   },
   {
     path: '/:catchAll(.*)',
