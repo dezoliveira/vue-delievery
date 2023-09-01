@@ -1,6 +1,6 @@
 <template>
-  <Header />
-  <router-view/>
+  <Header v-show="hideHeader" />
+  <router-view />
 </template>
 <script>
 import Header from '@/components/Header.vue'
@@ -11,6 +11,26 @@ export default {
     Header,
     Home,
   },
+
+  data() {
+    return {
+      hideHeader: true
+    }
+  },
+
+  // mounted() {
+  //   window.addEventListener('scroll', this.handleScroll)
+  // },
+
+  // methods: {
+  //   handleScroll(){
+  //     this.hideHeader = true
+  //     if(window.scrollY > 500) {
+  //       this.hideHeader = false
+  //       window.removeEventListener('scroll', this.handleClickEvent);
+  //     }
+  //   }
+  // },
 }
 </script>
 <style>
@@ -27,6 +47,8 @@ export default {
   align-items: center;
   justify-content: center;
 
+  
   /* gap: 10px */
+
 }
 </style>
