@@ -1,5 +1,6 @@
 <template>
-  <Header v-show="hideHeader" />
+  <!-- <Header v-show="hideHeader" /> -->
+  <Header />
   <router-view />
 </template>
 <script>
