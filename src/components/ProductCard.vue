@@ -5,31 +5,51 @@
         v-for="product in activeProducts"
         :key="product.Codigo"
         :id="product.Codigo"
-      >            
-        <div class="card">
-          <div class="card-header">
-            
-          </div>
-          <div class="card-body">
-            <div class="product-details">
-              <span>{{ product.Descricao }}</span>
-              <label>Observação:</label>
-              <span> 
-                {{ 
-                  product.Observacao ? 
-                    product.Observacao 
-                  : 'Indisponível' 
-                }} 
-              </span>
-              <span class="product-price">
-                {{ formatValue(product.Venda) }}
-              </span>
+      > 
+        <router-link 
+          :to=" 
+            {
+              name: 'AddProducts', 
+              params: { 
+                id: product.Codigo,
+                descricao: product.Descricao, 
+              } 
+            }
+          "
+        >
+          <div class="card">
+            <div class="card-header">
+              
             </div>
-            <span class="product-img">
-              <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.portaldofranchising.com.br%2Fwp-content%2Fuploads%2F2017%2F10%2Fkfc.jpg&f=1&nofb=1&ipt=83571c81ece60eae4693cd0d86d267a339ae59a8f12d19913250d57a31342cbc&ipo=images" />
-            </span>
+            <div class="card-body">
+              <span class="product-img">
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.portaldofranchising.com.br%2Fwp-content%2Fuploads%2F2017%2F10%2Fkfc.jpg&f=1&nofb=1&ipt=83571c81ece60eae4693cd0d86d267a339ae59a8f12d19913250d57a31342cbc&ipo=images" />
+              </span>
+              <div class="product-details">
+                <span>{{ product.Descricao }}</span>
+                <!-- <label>Observação:</label>
+                <span> 
+                  {{ 
+                    product.Observacao ? 
+                      product.Observacao 
+                    : 'Indisponível' 
+                  }} 
+                </span> -->
+                <span class="product-price">
+                  {{ formatValue(product.Venda) }}
+                </span>
+              </div>
+            </div>
+            <!-- <div class="btn-group">
+              <router-link 
+                :to=" {name: 'AddProducts', params: {id: product.Codigo } }">
+                <button class="btn">Adicionar</button>
+              </router-link>
+              <button class="btn2">Detalhes</button>
+            </div> -->
           </div>
-        </div>
+        </router-link>           
+      
         <hr v-show="groupCodigo === product.idgrupo"/>
       </li>
     </ul>
@@ -66,6 +86,10 @@ export default {
 
       return newValue
     },
+
+    // handleSubmit(id) {
+    //   this.$router.push('/AddProducts/' + id)
+    // }
   },
 
   mounted() {
@@ -89,12 +113,17 @@ export default {
   flex-direction: column;
   min-width: 100%;
   padding: 10px;
+  background-color: #F5F5F5;
+  border-radius: 15px;
+  color: black;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
 
 .card-body {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  gap: 10px;
 }
 
 .card-body .product-details {
@@ -108,8 +137,12 @@ export default {
 }
 
 .card-body .product-img {
-  min-width: 100px;
-  max-width: 100px;
+  min-width: 60px;
+  max-width: 60px;
+}
+
+.card-body .product-img img {
+  border-radius: 50%;
 }
 
 .card-body .product-details .product-price {
@@ -119,5 +152,30 @@ export default {
 
 hr {
   width: 100%;
+}
+
+.btn-group {
+  width: 100%;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-add {
+  background-color: #10b981;
+  width: 100%;
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px 10px;
+  border: 0;
+}
+
+.btn2 {
+  background-color: #22d3ee;
+  width: 30%;
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px 10px;
 }
 </style>

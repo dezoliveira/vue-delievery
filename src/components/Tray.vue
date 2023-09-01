@@ -14,8 +14,8 @@ export default {
 <style scoped>
   .container {
     width: 100%;
-    height: 100vw;
-    padding: 20px 10px 10px 10px;
+    height: 100%;
+    padding: 20px 25px;
     background-color: #fff;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px; 

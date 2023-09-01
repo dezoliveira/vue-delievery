@@ -9,6 +9,7 @@
           v-if="currentRouterName !== 'home'"
           style="
             display: flex; 
+            align-items: center;
             gap: 5px
           "
         >
@@ -42,7 +43,7 @@ export default {
 <style scoped>
   .container {
     position: -webkit-sticky; /* Safari */
-    position: fixed;
+    position: sticky;
     top: 0;
 
     z-index: 1;

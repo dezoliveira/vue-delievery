@@ -88,7 +88,7 @@ export default {
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin-top: 40px;
+    /*margin-top: 40px;*/
     padding: 20px 10px 40px 10px;
     gap: 15px;
     color: #fff;
