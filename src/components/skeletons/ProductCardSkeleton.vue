@@ -6,7 +6,7 @@
             <div class="card-header"></div>
             <div class="card-body">
               <span class="product-img">
-                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.portaldofranchising.com.br%2Fwp-content%2Fuploads%2F2017%2F10%2Fkfc.jpg&f=1&nofb=1&ipt=83571c81ece60eae4693cd0d86d267a339ae59a8f12d19913250d57a31342cbc&ipo=images" />
+                <img/>
               </span>
               <div class="product-details">
                 <span></span>
@@ -26,18 +26,13 @@ export default {
 </script>
 <style scoped>
 
-.card {
-  height: 500px;
-  background-color: red;
-}
-
 .product-details span {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.product-img img {
+.card-body .product-img img {
   border-radius: 50%;
   width: 100%;
 }
