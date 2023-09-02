@@ -1,5 +1,7 @@
 <template>
-  <Header v-show="hideHeader" />
+  <div class="container">
+    <Header v-show="hideHeader" />
+  </div>
   <router-view />
 </template>
 <script>
@@ -22,6 +24,18 @@ export default {
     this.$store.dispatch('loadProducts')
     this.$store.dispatch('loadCategories')
     this.$store.dispatch('loadGroups')
+  },
+
+  beforeMount() {
+    this.toTop
+  },
+
+  methods: {
+    toTop() {
+      window.onbeforeunload = function () {
+        window.scrollTo(0,0);
+      };
+    }
   }
 
   // mounted() {
@@ -56,5 +70,10 @@ export default {
   
   /* gap: 10px */
 
+}
+
+.container {
+  width: 100%;
+  margin-bottom: 40px;
 }
 </style>

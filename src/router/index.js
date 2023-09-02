@@ -10,7 +10,9 @@ const routes = [
     path: '/addProducts/:id',
     name: 'AddProducts',
     props: true,
-    component: () => import('@/views/AddProducts.vue')
+    component: () => import('@/views/AddProducts.vue'),
+    // loading: LoadingComponent,
+    // timeout: 5000
   },
   {
     path: '/:catchAll(.*)',

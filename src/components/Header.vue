@@ -43,7 +43,7 @@ export default {
 <style scoped>
   .container {
     position: -webkit-sticky; /* Safari */
-    position: sticky;
+    position: fixed;
     top: 0;
 
     z-index: 1;
