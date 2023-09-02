@@ -1,5 +1,5 @@
 <template>
-  <div v-if="groups.length">
+  <!-- <div v-if="groups.length"> -->
     <div 
       class="container" 
       v-for="group in activeGroups" 
@@ -11,20 +11,29 @@
         </strong> 
       </h1> 
       <hr />
-      <ProductCard 
-        :groupCodigo="group.Codigo"
-      />
+      <Suspense>
+        <template #default>
+          <ProductCard
+            :groupCodigo="group.Codigo"
+          />
+        </template>
+        <template #fallback>
+          <ProductCardSkeleton/>
+        </template>
+      </Suspense>
     </div>
-  </div>
+  <!-- </div>
   <v-else>
     Oops! nenhum produto a ser exibido 😢
-  </v-else>
+  </v-else> -->
 </template>
 <script>
 import ProductCard from './ProductCard.vue'
+import ProductCardSkeleton from './skeletons/ProductCardSkeleton.vue'
 export default {
   components: {
-    ProductCard
+    ProductCard,
+    ProductCardSkeleton
   },
 
   props: {

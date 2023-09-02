@@ -1,31 +1,31 @@
 <template>
-  <Tray>
-    <div
-      class="accordion" 
-      ref="category"
-      v-for="category in categories" 
-      :key="category.id"
-    > 
-      <div 
-        class="accordion-item" 
-        @click="toggleCollapse(category.id)"
-      >
-        <i>
-          <fa v-if="collapse && activeItem === category.id" icon="chevron-down" />
-          <fa v-else icon="chevron-right" />
-        </i>
-        <h4>{{category.descricao}}</h4>
-      </div>
-      <hr v-show="!collapse" />
-      <div v-show="collapse && activeItem === category.id" class="accordion-collapse">
-        <div class="accordion-body">
-          <ProductList 
-            :categoryId="category.id"
-          />
+      <Tray>
+        <div
+          class="accordion" 
+          ref="category"
+          v-for="category in categories" 
+          :key="category.id"
+        > 
+          <div 
+            class="accordion-item" 
+            @click="toggleCollapse(category.id)"
+          >
+            <i>
+              <fa v-if="collapse && activeItem === category.id" icon="chevron-down" />
+              <fa v-else icon="chevron-right" />
+            </i>
+            <h4>{{category.descricao}}</h4>
+          </div>
+          <hr v-show="!collapse" />
+          <div v-show="collapse && activeItem === category.id" class="accordion-collapse">
+            <div class="accordion-body">
+              <ProductList 
+                :categoryId="category.id"
+              />
+            </div>
+          </div>    
         </div>
-      </div>    
-    </div>
-  </Tray>
+      </Tray>
 </template>
 <script>
   import ProductList from './ProductList.vue'
@@ -35,7 +35,7 @@
     name: 'Accordion',
     components: {
       ProductList,
-      Tray
+      Tray,
     },
 
     data() {
