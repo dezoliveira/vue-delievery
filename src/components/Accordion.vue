@@ -42,8 +42,6 @@
       return {
         collapse: true,
         activeItem: '1',
-        categories: [],
-        API_URL : ''
       }
     },
     
@@ -56,19 +54,13 @@
         this.activeItem = categoryId
         this.collapse = !this.collapse
       },
+    },
 
-      async loadCategories() {
-        const req = await fetch(`${this.API_URL}/categorias.php?emp=1`)
-        const data = await req.json()
-        console.log(data)
-        this.categories = data
+    computed: {
+      categories() {
+        return this.$store.state.categories
       }
-    },
-
-    mounted() {
-      this.API_URL = process.env.VUE_APP_API_URL
-      this.loadCategories()
-    },
+    }
 
   }
 </script>

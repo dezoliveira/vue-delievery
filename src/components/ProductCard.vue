@@ -27,26 +27,11 @@
               </span>
               <div class="product-details">
                 <span>{{ product.Descricao }}</span>
-                <!-- <label>Observação:</label>
-                <span> 
-                  {{ 
-                    product.Observacao ? 
-                      product.Observacao 
-                    : 'Indisponível' 
-                  }} 
-                </span> -->
                 <span class="product-price">
                   {{ formatValue(product.Venda) }}
                 </span>
               </div>
             </div>
-            <!-- <div class="btn-group">
-              <router-link 
-                :to=" {name: 'AddProducts', params: {id: product.Codigo } }">
-                <button class="btn">Adicionar</button>
-              </router-link>
-              <button class="btn2">Detalhes</button>
-            </div> -->
           </div>
         </router-link>           
       
@@ -61,20 +46,7 @@ export default {
     groupCodigo: null,
   },
 
-  data() {
-    return {
-      products : [],
-      API_URL : ''
-    }
-  },
-
   methods: {
-    async loadProducts() {
-      const req = await fetch(`${this.API_URL}/mercadorias.php?emp=1`)
-      const data = await req.json()
-      this.products = data
-    },
-
     formatValue(value) {
       let newValue = value
 
@@ -86,23 +58,18 @@ export default {
 
       return newValue
     },
-
-    // handleSubmit(id) {
-    //   this.$router.push('/AddProducts/' + id)
-    // }
-  },
-
-  mounted() {
-    this.API_URL = process.env.VUE_APP_API_URL
-    this.loadProducts()
   },
 
   computed: {
+    products() {
+      return this.$store.state.products
+    },
+
     activeProducts() {
       return this.products.filter((product) => {
         return product.idgrupo === this.groupCodigo
       })
-    }
+    },
   }
 
 }
