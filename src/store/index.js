@@ -28,6 +28,11 @@ export default createStore({
       state.productsInBag.push(product)
     },
 
+    removeFromBag(state, productId) {
+      let updatedBag = state.productsInBag.filter(item => productId != item.Codigo)
+      state.productsInBag = updatedBag
+    },
+
     preOrder(state, product) {
       state.preOrder = []
       state.preOrder.push(product)
@@ -56,6 +61,10 @@ export default createStore({
 
     addToBag({ commit }, product) {
       commit('addToBag', product)
+    },
+
+    removeFromBag( {commit}, productId) {
+      commit('removeFromBag', productId)
     },
 
     preOrder({ commit }, product) {

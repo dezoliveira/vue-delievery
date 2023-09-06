@@ -32,7 +32,11 @@
               </div>
             </div>
             <div class="card-footer">
-              <span class="removeTag" v-if="isInBag(product)">
+              <span 
+                class="removeTag" 
+                v-if="isInBag(product)"
+                @click.prevent="removeFromBag(product.Codigo)"
+              >
                 <small>Remover</small>
                 <i class="icon">
                   <fa icon="times" />
@@ -65,18 +69,20 @@ export default {
       return newValue
     },
 
-    addToBag(product) {
-      product.quantity = 1
-      this.$store.dispatch('addToBag', product)
+    preOrder(product) {
+      this.$store.dispatch('preOrder', product)
     },
 
     isInBag(product) {
       return this.productsInBag.find(item => item.Codigo == product.Codigo)
     },
 
-    preOrder(product) {
-      this.$store.dispatch('preOrder', product)
-    }
+    removeFromBag(productId) {
+      if( confirm('Deseja excluir esse item do carinho ?') ) {
+        this.$store.dispatch('removeFromBag', productId)
+        alert('item excluido do carrinho!')
+      }
+    },
   },
 
   computed: {
