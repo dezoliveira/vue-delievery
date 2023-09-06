@@ -15,6 +15,10 @@ const routes = [
     // timeout: 5000
   },
   {
+    path: '/all-products',
+    redirect: '/'
+  },
+  {
     path: '/:catchAll(.*)',
     name: 'NotFound',
     component: () => import('@/views/NotFound.vue')

@@ -6,23 +6,33 @@ export default createStore({
   state: {
     products: [],
     categories : [],
-    groups : []
+    groups : [],
+    productsInBag : [],
+    preOrder : []
   },
 
   mutations: {
     loadProducts(state, products) {
-      console.log(products)
       state.products = products
     },
 
     loadCategories(state, categories) {
-      console.log(categories)
       state.categories = categories
     },
 
     loadGroups(state, groups) {
       state.groups = groups
+    },
+
+    addToBag(state, product) {
+      state.productsInBag.push(product)
+    },
+
+    preOrder(state, product) {
+      state.preOrder = []
+      state.preOrder.push(product)
     }
+
   },
 
   actions: {
@@ -43,6 +53,14 @@ export default createStore({
       const data = await req.json()
       commit('loadGroups', data)
     },
+
+    addToBag({ commit }, product) {
+      commit('addToBag', product)
+    },
+
+    preOrder({ commit }, product) {
+      commit('preOrder', product)
+    }
   },
    
   modules: {

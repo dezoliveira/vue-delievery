@@ -12,12 +12,11 @@
               name: 'AddProducts', 
               params: { 
                 id: product.Codigo,
-                descricao: product.Descricao, 
-              } 
+              },
             }
           "
         >
-          <div class="card">
+          <div class="card" :class="{ inBag : isInBag(product) }" @click="preOrder(product)"> 
             <div class="card-header">
               
             </div>
@@ -32,9 +31,16 @@
                 </span>
               </div>
             </div>
+            <div class="card-footer">
+              <span class="removeTag" v-if="isInBag(product)">
+                <small>Remover</small>
+                <i class="icon">
+                  <fa icon="times" />
+                </i>   
+              </span>       
+            </div>
           </div>
-        </router-link>           
-      
+        </router-link>
         <hr v-show="groupCodigo === product.idgrupo"/>
       </li>
     </ul>
@@ -58,6 +64,19 @@ export default {
 
       return newValue
     },
+
+    addToBag(product) {
+      product.quantity = 1
+      this.$store.dispatch('addToBag', product)
+    },
+
+    isInBag(product) {
+      return this.productsInBag.find(item => item.Codigo == product.Codigo)
+    },
+
+    preOrder(product) {
+      this.$store.dispatch('preOrder', product)
+    }
   },
 
   computed: {
@@ -70,6 +89,10 @@ export default {
         return product.idgrupo === this.groupCodigo
       })
     },
+
+    productsInBag() {
+      return this.$store.state.productsInBag
+    }
   }
 
 }
@@ -144,5 +167,34 @@ hr {
   color: #fff;
   border-radius: 5px;
   padding: 5px 10px;
+}
+
+.inBag {
+  border: 1px solid #4ade80;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.removeTag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: red;
+  padding: 4px 12px;
+  color: #fff;
+  border-radius: 15px;
+}
+
+.removeTag small {
+  font-size: 70%;
+}
+
+.removeTag i {
+  font-size: 14px;
 }
 </style>

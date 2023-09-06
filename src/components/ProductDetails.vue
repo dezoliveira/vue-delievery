@@ -5,9 +5,9 @@
     </span>
     <Tray>
       <!-- <form class="form" @submit.prevent="handleSubmit(id)"> -->
-      <div class="form">
-        <h1><strong>Chicken Especial</strong></h1>
-        <p>Balde de galinha com tempero de alecrim especial sabor cebola caramelizada.</p>
+      <div class="form" v-for="product in products" :key="product.Codigo">
+        <h1><strong>{{ product.Descricao }}</strong></h1>
+        <p class="observation">{{ product.Observacao  }}</p>
         <div class="values">
           <span class="quantity">
             <button class="minus" :disabled="quantity <= 1" @click="quantity--">
@@ -19,10 +19,10 @@
             </button>
           </span>
           <span>
-            <h4>16.00</h4>
+            <h4>{{ product.Venda }}</h4>
           </span>
         </div>
-        <button class="btn-add" @click="handleSubmit(id)">Adicionar</button>
+        <button class="btn-add" @click="addToBag(product)">Adicionar</button>
       </div>
       <!-- </form> -->
     </Tray>
@@ -36,8 +36,9 @@ export default {
   components: {
     Tray
   },
-
+  
   props: ['id'],
+
   data() {
     return {
       quantity: 1,
@@ -45,10 +46,26 @@ export default {
   },
 
   methods: {
-    handleSubmit(id){
-      alert(id)
+    addToBag(product) {
+      product.quantity = this.quantity
+      this.$store.dispatch('addToBag', product)
+      this.redirect()
     },
+
+    redirect() {
+      this.$router.push({ name: 'home'})
+    }
   },
+
+  computed: {
+    products() {
+      return this.$store.state.preOrder
+    },
+
+    productsInBag() {
+      return this.$store.state.productsInBag
+    }
+  }
 }
 </script>
 
@@ -115,5 +132,10 @@ export default {
     /* firefox */
     border: 0;
     background: none;
+  }
+
+  .form .observation {
+    min-height: 70px;
+    max-height: 70px;
   }
 </style>
