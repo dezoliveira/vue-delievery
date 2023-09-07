@@ -4,6 +4,7 @@ const apiURL = process.env.VUE_APP_API_URL
 
 export default createStore({
   state: {
+    company : [],
     products: [],
     categories : [],
     groups : [],
@@ -12,6 +13,11 @@ export default createStore({
   },
 
   mutations: {
+    loadCompany(state, company) {
+      console.log(company)
+      state.company = company
+    },
+
     loadProducts(state, products) {
       state.products = products
     },
@@ -41,6 +47,12 @@ export default createStore({
   },
 
   actions: {
+    async loadCompany({ commit }) {
+      const req = await fetch(`${apiURL}/empresa.php?emp=1`)
+      const data = await req.json()
+      commit('loadCompany', data)
+    },
+
     async loadProducts({ commit }) {
       const req = await fetch(`${apiURL}/mercadorias.php?emp=1`)
       const data = await req.json()

@@ -29,7 +29,6 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-
 import ProductList from './ProductList.vue'
 import Tray from './Tray.vue'
 
