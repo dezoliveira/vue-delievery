@@ -26,6 +26,7 @@ export default {
     this.$store.dispatch('loadCategories')
     this.$store.dispatch('loadGroups')
     this.$store.dispatch('loadCompany')
+    this.$store.dispatch('loadParams')
   },
 
   beforeMount() {
