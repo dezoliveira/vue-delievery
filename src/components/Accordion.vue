@@ -28,41 +28,43 @@
   </Tray>
 </template>
 <script>
-  import ProductList from './ProductList.vue'
-  import Tray from './Tray.vue'
+import { mapState } from 'vuex'
 
-  export default{
-    name: 'Accordion',
-    components: {
-      ProductList,
-      Tray
-    },
+import ProductList from './ProductList.vue'
+import Tray from './Tray.vue'
 
-    data() {
-      return {
-        collapse: true,
-        activeItem: '1',
-      }
-    },
-    
-    methods: {
-      toggleCollapse(categoryId) {
-        if(this.activeItem !== categoryId){
-          this.collapse = false
-        }
-    
-        this.activeItem = categoryId
-        this.collapse = !this.collapse
-      },
-    },
+export default{
+  name: 'Accordion',
+  components: {
+    ProductList,
+    Tray
+  },
 
-    computed: {
-      categories() {
-        return this.$store.state.categories
-      }
+  data() {
+    return {
+      collapse: true,
+      activeItem: '1',
     }
+  },
+  
+  methods: {
+    toggleCollapse(categoryId) {
+      if(this.activeItem !== categoryId){
+        this.collapse = false
+      }
+  
+      this.activeItem = categoryId
+      this.collapse = !this.collapse
+    },
+  },
 
+  computed: {
+    ...mapState([
+      'categories'
+    ]),
   }
+
+}
 </script>
 <style scoped>
   /* <!-- * Movido para component Tray --> */

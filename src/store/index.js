@@ -64,7 +64,10 @@ export default createStore({
     },
 
     removeFromBag( {commit}, productId) {
-      commit('removeFromBag', productId)
+      if( confirm('Deseja excluir esse item do carinho ?') ) {
+        commit('removeFromBag', productId)
+      }
+      alert('item excluido do carrinho!')
     },
 
     preOrder({ commit }, product) {

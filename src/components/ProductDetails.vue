@@ -5,7 +5,7 @@
     </span>
     <Tray>
       <!-- <form class="form" @submit.prevent="handleSubmit(id)"> -->
-      <div class="form" v-for="product in products" :key="product.Codigo">
+      <div class="form" v-for="product in preOrder" :key="product.Codigo">
         <h1><strong>{{ product.Descricao }}</strong></h1>
         <p class="observation">{{ product.Observacao  }}</p>
         <div class="values">
@@ -30,7 +30,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import Tray from './Tray.vue';
+
 export default {
   name: 'ProductDetails',
   components: {
@@ -58,13 +60,10 @@ export default {
   },
 
   computed: {
-    products() {
-      return this.$store.state.preOrder
-    },
-
-    productsInBag() {
-      return this.$store.state.productsInBag
-    }
+    ...mapState([
+      'preOrder',
+      'productsInBag'
+    ])
   }
 }
 </script>

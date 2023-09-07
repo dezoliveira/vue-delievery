@@ -51,6 +51,8 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
+
 export default {
   props: {
     groupCodigo: null,
@@ -78,27 +80,21 @@ export default {
     },
 
     removeFromBag(productId) {
-      if( confirm('Deseja excluir esse item do carinho ?') ) {
-        this.$store.dispatch('removeFromBag', productId)
-        alert('item excluido do carrinho!')
-      }
+      this.$store.dispatch('removeFromBag', productId)
     },
   },
 
   computed: {
-    products() {
-      return this.$store.state.products
-    },
+    ...mapState([
+      'products', 
+      'productsInBag'
+    ]),
 
     activeProducts() {
       return this.products.filter((product) => {
         return product.idgrupo === this.groupCodigo
       })
     },
-
-    productsInBag() {
-      return this.$store.state.productsInBag
-    }
   }
 
 }

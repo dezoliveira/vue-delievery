@@ -21,7 +21,9 @@
   </v-else> -->
 </template>
 <script>
+import { mapState } from 'vuex'
 import ProductCard from './ProductCard.vue'
+
 export default {
   components: {
     ProductCard
@@ -38,9 +40,9 @@ export default {
   },
 
   computed: {
-    groups() {
-      return this.$store.state.groups
-    },
+    ...mapState([
+      'groups'
+    ]),
 
     activeGroups() {
       return this.groups.filter((group) => {
