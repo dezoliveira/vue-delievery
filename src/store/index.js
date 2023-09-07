@@ -14,7 +14,6 @@ export default createStore({
 
   mutations: {
     loadCompany(state, company) {
-      console.log(company)
       state.company = company
     },
 

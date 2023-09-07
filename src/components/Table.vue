@@ -54,7 +54,6 @@ export default {
     async loadParams() {
       const req = await fetch(`${this.API_URL}/parametros.php?emp=1`)
       const data = await req.json()
-      console.log(data)
       this.params = data
       this.todayStatus(data)
     },
