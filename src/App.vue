@@ -30,7 +30,7 @@ export default {
   },
 
   beforeMount() {
-    this.toTop
+    // this.toTop
   },
 
   methods: {

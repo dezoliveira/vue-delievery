@@ -7,15 +7,15 @@
         <th>Entregar</th>
       </tr>
       <tr 
-        v-for="stat in status" 
-        :key="stat.id"
+        v-for="status in dailyStatus" 
+        :key="status.id"
       >
-        <td>{{stat.tempoentrega}}</td>
+        <td>{{status.tempoentrega}}</td>
         <td>
-          {{ flagToString(stat.AgendaPedido) }}
+          {{ flagToString(status.AgendaPedido) }}
         </td>
         <td>
-          {{ flagToString(stat.ativaentrega) }}
+          {{ flagToString(status.ativaentrega) }}
         </td>
       </tr>
     </table>
@@ -29,7 +29,7 @@
         v-for="param in params" 
         :key="param.id"
       >
-        <tr :class="{ active: this.today === param.dia }">
+        <tr :class="{ active: today === param.dia }">
           <td >{{param.dia}}</td>
           <td>{{param.abertura}}</td>
           <td>{{param.fechamento}}</td>
@@ -40,42 +40,16 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   data() {
     return {
-      params : [],
-      status : [],
       today: null,
-      API_URL: ''
     }
   },
 
   methods: {
-    async loadParams() {
-      const req = await fetch(`${this.API_URL}/parametros.php?emp=1`)
-      const data = await req.json()
-      this.params = data
-      this.todayStatus(data)
-    },
-
-    async todayStatus(data) {
-      let today = new Date()
-      let day = today.getDay()
-      let status = []
-      const daysOfWeek = []
-
-      for (let d in data) {
-        daysOfWeek.push(data[d].dia)
-      }
-
-      status = data.filter(
-        (x) => (x.dia === daysOfWeek[day])
-      )
-
-      this.status = status
-      this.today = status[0].dia
-    },
-
     flagToString(flag) {
       const flags = {
         'S' : 'Sim',
@@ -86,11 +60,36 @@ export default {
     }
   }, 
 
-  mounted() {
-    this.API_URL = process.env.VUE_APP_API_URL
-    this.loadParams()
-  },
+  computed: {
+    ...mapState([
+      'params'
+    ]),
 
+    dailyStatus() {
+      let params = this.params
+      console.log(params)
+      let today = new Date()
+      let day = today.getDay()
+      let status = []
+      const daysOfWeek = []
+
+      for (let p in params) {
+        daysOfWeek.push(params[p].dia)
+      }
+
+      status = params.filter(
+        (x) => (x.dia === daysOfWeek[day])
+      )
+
+      console.log(status)
+
+      return status
+    },
+
+    today() {
+      return this.dailyStatus[0].dia
+    }
+  }
 }
 </script>
 

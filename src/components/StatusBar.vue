@@ -60,7 +60,6 @@ export default {
 
   data () {
     return {
-      status : [],
       isOpen: false,
       isLoaded: false, 
     }
