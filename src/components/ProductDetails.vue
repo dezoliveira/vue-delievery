@@ -19,7 +19,7 @@
             </button>
           </span>
           <span>
-            <h4>{{ product.Venda }}</h4>
+            <h4>{{ formatValue(this.quantity * product.Venda) }}</h4>
           </span>
         </div>
         <button class="btn-add" @click="addToBag(product)">Adicionar</button>
@@ -56,7 +56,19 @@ export default {
 
     redirect() {
       this.$router.push({ name: 'home'})
-    }
+    },
+
+    formatValue(value) {
+      let newValue = value
+
+      if (newValue !== null) {
+        newValue = 'R$ ' + parseInt(value).toFixed(2).toString().replace('.', ',')
+      } else {
+        newValue = 'valor idisponivel no momento'
+      }
+
+      return newValue
+    },
   },
 
   computed: {

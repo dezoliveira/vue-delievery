@@ -69,6 +69,19 @@ export default {
       'company', 
     ]),
   },
+
+  watch: {
+    showModal() {
+      if (this.showModal)
+        document
+          .documentElement
+            .style.overflow = 'hidden'
+      else
+        document
+          .documentElement
+            .style.overflow = 'auto'
+    },
+  }
 }
 </script>
 <style scoped>
