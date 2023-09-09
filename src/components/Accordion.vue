@@ -10,11 +10,11 @@
         class="accordion-item" 
         @click="toggleCollapse(category.id)"
       >
-        <i>
-          <fa v-if="collapse && activeItem === category.id" icon="chevron-down" />
-          <fa v-else icon="chevron-right" />
-        </i>
         <h4>{{category.descricao}}</h4>
+        <i>
+          <fa v-if="collapse && activeItem === category.id" icon="chevron-up" />
+          <fa v-else icon="chevron-down" />
+        </i>
       </div>
       <hr v-show="!collapse" />
       <div v-show="collapse && activeItem === category.id" class="accordion-collapse">
@@ -90,9 +90,10 @@ export default{
   .accordion-item {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 10px;
     padding: 10px 0;
+    width: 100%;
   }
 
   .accordion-item h4, i {
