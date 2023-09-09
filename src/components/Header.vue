@@ -24,7 +24,7 @@
       </router-link>
     </nav>
     <nav class="bag">
-      <router-link to="/lol">
+      <router-link :to="{ name: 'shoppingBag'}">
         <i>
           <fa icon="bag-shopping" />
         </i>

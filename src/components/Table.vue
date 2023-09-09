@@ -67,7 +67,6 @@ export default {
 
     dailyStatus() {
       let params = this.params
-      console.log(params)
       let today = new Date()
       let day = today.getDay()
       let status = []
@@ -80,8 +79,6 @@ export default {
       status = params.filter(
         (x) => (x.dia === daysOfWeek[day])
       )
-
-      console.log(status)
 
       return status
     },
@@ -104,6 +101,7 @@ export default {
     font-size: 14px;
     width: 100%;
     border-collapse: collapse;
+    text-align: center;
 }
 
   table :where(th, td) {

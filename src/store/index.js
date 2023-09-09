@@ -46,6 +46,10 @@ export default createStore({
     preOrder(state, product) {
       state.preOrder = []
       state.preOrder.push(product)
+    },
+
+    cleanBag(state) {
+      state.productsInBag = []
     }
 
   },
@@ -88,12 +92,19 @@ export default createStore({
     removeFromBag( {commit}, productId) {
       if( confirm('Deseja excluir esse item do carinho ?') ) {
         commit('removeFromBag', productId)
+        alert('item excluido do carrinho!')
       }
-      alert('item excluido do carrinho!')
     },
 
     preOrder({ commit }, product) {
       commit('preOrder', product)
+    },
+
+    cleanBag( {commit} ) {
+      if( confirm('Deseja finalizar o pedido ?') ) {
+        commit('cleanBag')
+        alert('Pedido realizado com sucesso!')
+      }
     }
   },
    
