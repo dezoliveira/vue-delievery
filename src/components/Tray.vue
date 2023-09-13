@@ -25,9 +25,9 @@ export default {
     width: 100%;
     /* height: 100vh; */
     height: 100vw;
-    padding: 20px 25px 0 25px;
+    padding: 40px 25px 0 25px;
     background-color: #fff;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
   }
 </style>

@@ -199,4 +199,8 @@ hr {
 .removeTag i {
   font-size: 14px;
 }
+
+hr {
+  padding: 8px;
+}
 </style>

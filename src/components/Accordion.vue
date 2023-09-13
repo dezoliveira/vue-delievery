@@ -1,5 +1,6 @@
 <template>
   <Tray>
+    <div class="menu">Menu</div>
     <div
       class="accordion" 
       ref="category"
@@ -10,7 +11,12 @@
         class="accordion-item" 
         @click="toggleCollapse(category.id)"
       >
-        <h4>{{category.descricao}}</h4>
+        <span class="left">
+          <i>
+            <fa :icon="dynamicIcons(category.descricao)" />
+          </i>
+          <p>{{category.descricao}}</p>
+        </span>
         <i>
           <fa v-if="collapse && activeItem === category.id" icon="chevron-up" />
           <fa v-else icon="chevron-down" />
@@ -55,6 +61,13 @@ export default{
       this.activeItem = categoryId
       this.collapse = !this.collapse
     },
+
+    dynamicIcons(descripion) {
+      switch(descripion) {
+        case 'PÃO DE HAMBURGUER':
+          return 'burger'
+      }
+    }
   },
 
   computed: {
@@ -75,6 +88,18 @@ export default{
     border-top-right-radius: 15px;
   }*/
   
+  .menu {
+    padding: 20px;
+    background-color: #10b981;
+    color: #fff;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  
   .accordion {
     width: 100%;
     display: flex;
@@ -85,6 +110,9 @@ export default{
 
   .accordion-body {
     width: 100%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 15px;
+    margin-top: 25px;
   }
 
   .accordion-item {
@@ -92,13 +120,30 @@ export default{
     align-items: center;
     justify-content: space-between;
     gap: 10px;
-    padding: 10px 0;
     width: 100%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 15px;
+    background: #fff;
   }
 
   .accordion-item h4, i {
-    color: crimson;
     font-weight: bold;
+  }
+
+  .accordion-item i {
+    color: rgb(197, 184, 184);
+    font-size: 12px;
+  }
+
+  .accordion .left {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .accordion .left i {
+    font-size: 25px;
   }
 
   .accordion-body {
