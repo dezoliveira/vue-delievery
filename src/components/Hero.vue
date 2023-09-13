@@ -35,6 +35,7 @@
 
 </template>
 <script>
+import { mapState } from 'vuex'
 import Modal from './Modal.vue'
 import Table from './Table.vue'
 import StatusBar from './StatusBar.vue'
@@ -49,9 +50,7 @@ export default {
   data() {
     return {
       showModal: false,
-      company: [],
       isLoaded: false,  
-      API_URL: ''
     }
   },
 
@@ -60,21 +59,28 @@ export default {
       this.showModal = !this.showModal
     },
 
-    async loadCompany() {
-      const req = await fetch(`${this.API_URL}/empresa.php?emp=1`)
-      const data = await req.json()
-      console.log(data)
-      this.company = data
-    },
-
     async onImgLoad() {
       this.isLoaded = true
     },
-  }, 
+  },
+  
+  computed: {
+    ...mapState([
+      'company', 
+    ]),
+  },
 
-  mounted() {
-    this.API_URL = process.env.VUE_APP_API_URL
-    this.loadCompany()
+  watch: {
+    showModal() {
+      if (this.showModal)
+        document
+          .documentElement
+            .style.overflow = 'hidden'
+      else
+        document
+          .documentElement
+            .style.overflow = 'auto'
+    },
   }
 }
 </script>

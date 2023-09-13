@@ -23,27 +23,35 @@
         </span>
       </router-link>
     </nav>
-    <nav class="city">
-      <h4>São José do Rio Pardo</h4>
-      <i>
-        <fa icon="location-dot" />
-      </i>
+    <nav class="bag">
+      <router-link :to="{ name: 'shoppingBag'}">
+        <i>
+          <fa icon="bag-shopping" />
+        </i>
+        <span class="bag-quantity">{{ this.productsInBag.length }}</span>
+      </router-link>
     </nav>
   </navbar>
 </template>
 <script>
+import { mapState } from 'vuex';
+
 export default {
   computed: {
+    ...mapState([
+      'productsInBag'
+    ]),
+
     currentRouterName() {
       return this.$route.name
-    }
+    },
   }
 }
 </script>
 <style scoped>
   .container {
     position: -webkit-sticky; /* Safari */
-    position: sticky;
+    position: fixed;
     top: 0;
 
     z-index: 1;
@@ -78,5 +86,20 @@ export default {
 
   .city i {
     color: crimson;
+  }
+
+  .bag {
+    font-size: 24px;
+    position: relative;
+  }
+
+  .bag-quantity {
+    background: crimson;
+    border-radius: 100%;
+    padding: 2px 6px;
+    font-size: 10px;
+    position: absolute;
+    top: 15px;
+    left: 10px;
   }
 </style>

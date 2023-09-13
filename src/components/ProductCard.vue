@@ -12,12 +12,11 @@
               name: 'AddProducts', 
               params: { 
                 id: product.Codigo,
-                descricao: product.Descricao, 
-              } 
+              },
             }
           "
         >
-          <div class="card">
+          <div class="card" :class="{ inBag : isInBag(product) }" @click="preOrder(product)"> 
             <div class="card-header">
               
             </div>
@@ -27,54 +26,39 @@
               </span>
               <div class="product-details">
                 <span>{{ product.Descricao }}</span>
-                <!-- <label>Observação:</label>
-                <span> 
-                  {{ 
-                    product.Observacao ? 
-                      product.Observacao 
-                    : 'Indisponível' 
-                  }} 
-                </span> -->
                 <span class="product-price">
                   {{ formatValue(product.Venda) }}
                 </span>
               </div>
             </div>
-            <!-- <div class="btn-group">
-              <router-link 
-                :to=" {name: 'AddProducts', params: {id: product.Codigo } }">
-                <button class="btn">Adicionar</button>
-              </router-link>
-              <button class="btn2">Detalhes</button>
-            </div> -->
+            <div class="card-footer">
+              <span 
+                class="removeTag" 
+                v-if="isInBag(product)"
+                @click.prevent="removeFromBag(product.Codigo)"
+              >
+                <small>Remover</small>
+                <i class="icon">
+                  <fa icon="times" />
+                </i>   
+              </span>       
+            </div>
           </div>
-        </router-link>           
-      
+        </router-link>
         <hr v-show="groupCodigo === product.idgrupo"/>
       </li>
     </ul>
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
+
 export default {
   props: {
     groupCodigo: null,
   },
 
-  data() {
-    return {
-      products : [],
-      API_URL : ''
-    }
-  },
-
   methods: {
-    async loadProducts() {
-      const req = await fetch(`${this.API_URL}/mercadorias.php?emp=1`)
-      const data = await req.json()
-      this.products = data
-    },
-
     formatValue(value) {
       let newValue = value
 
@@ -87,27 +71,35 @@ export default {
       return newValue
     },
 
-    // handleSubmit(id) {
-    //   this.$router.push('/AddProducts/' + id)
-    // }
-  },
+    preOrder(product) {
+      this.$store.dispatch('preOrder', product)
+    },
 
-  mounted() {
-    this.API_URL = process.env.VUE_APP_API_URL
-    this.loadProducts()
+    isInBag(product) {
+      return this.productsInBag.find(item => item.Codigo == product.Codigo)
+    },
+
+    removeFromBag(productId) {
+      this.$store.dispatch('removeFromBag', productId)
+    },
   },
 
   computed: {
+    ...mapState([
+      'products', 
+      'productsInBag'
+    ]),
+
     activeProducts() {
       return this.products.filter((product) => {
         return product.idgrupo === this.groupCodigo
       })
-    }
+    },
   }
 
 }
 </script>
-<style>
+<style scoped>
 .card {
   display: flex;
   flex-direction: column;
@@ -177,5 +169,34 @@ hr {
   color: #fff;
   border-radius: 5px;
   padding: 5px 10px;
+}
+
+.inBag {
+  border: 1px solid #4ade80;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.removeTag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: red;
+  padding: 4px 12px;
+  color: #fff;
+  border-radius: 15px;
+}
+
+.removeTag small {
+  font-size: 70%;
+}
+
+.removeTag i {
+  font-size: 14px;
 }
 </style>

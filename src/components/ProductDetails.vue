@@ -5,9 +5,9 @@
     </span>
     <Tray>
       <!-- <form class="form" @submit.prevent="handleSubmit(id)"> -->
-      <div class="form">
-        <h1><strong>Chicken Especial</strong></h1>
-        <p>Balde de galinha com tempero de alecrim especial sabor cebola caramelizada.</p>
+      <div class="form" v-for="product in preOrder" :key="product.Codigo">
+        <h1><strong>{{ product.Descricao }}</strong></h1>
+        <p class="observation">{{ product.Observacao  }}</p>
         <div class="values">
           <span class="quantity">
             <button class="minus" :disabled="quantity <= 1" @click="quantity--">
@@ -19,10 +19,12 @@
             </button>
           </span>
           <span>
-            <h4>16.00</h4>
+            <h4>{{ formatValue(this.quantity * product.Venda) }}</h4>
           </span>
         </div>
-        <button class="btn-add" @click="handleSubmit(id)">Adicionar</button>
+        <div class="btn-group">
+          <button class="btn-add" @click="addToBag(product)">Adicionar</button>
+        </div>
       </div>
       <!-- </form> -->
     </Tray>
@@ -30,14 +32,17 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import Tray from './Tray.vue';
+
 export default {
   name: 'ProductDetails',
   components: {
     Tray
   },
-
+  
   props: ['id'],
+
   data() {
     return {
       quantity: 1,
@@ -45,9 +50,35 @@ export default {
   },
 
   methods: {
-    handleSubmit(id){
-      alert(id)
+    addToBag(product) {
+      product.quantity = this.quantity
+      console.log(product)
+      this.$store.dispatch('addToBag', product)
+      this.redirect()
     },
+
+    redirect() {
+      this.$router.push({ name: 'home'})
+    },
+
+    formatValue(value) {
+      let newValue = value
+
+      if (newValue !== null) {
+        newValue = 'R$ ' + parseInt(value).toFixed(2).toString().replace('.', ',')
+      } else {
+        newValue = 'valor idisponivel no momento'
+      }
+
+      return newValue
+    },
+  },
+
+  computed: {
+    ...mapState([
+      'preOrder',
+      'productsInBag'
+    ])
   }
 }
 </script>
@@ -59,7 +90,8 @@ export default {
     align-items: center;
     justify-content: flex-start;
     /* gap: 10px; */
-    height: 100%;
+    /* height: 100%; */
+    height: 100vw;
     padding: 18px;
   }
 
@@ -116,4 +148,27 @@ export default {
     border: 0;
     background: none;
   }
+
+  .form .observation {
+    min-height: 70px;
+    max-height: 70px;
+  }
+
+  .btn-group {
+    padding: 15px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  .btn-add {
+    background-color: #10b981;
+    width: 100%;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 10px;
+    border: 0;
+  }
+  
 </style>

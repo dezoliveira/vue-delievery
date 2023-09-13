@@ -1,6 +1,9 @@
 <template>
   <Hero />
   <Accordion />
+  <div v-for="product in products" :key="product.Codigo">
+    <h1>product.Descricao</h1>
+  </div>
 </template>
 
 <script>
@@ -16,12 +19,12 @@ export default {
 
   data() {
     return {
-    
+      
     }
   },
 
   mounted() {
-
+    window.scrollTo(0, 0)
   }
 }
 </script>
