@@ -6,7 +6,7 @@
           <Tray>
             <div class="bag-list">
               <span class="product-img">
-                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.portaldofranchising.com.br%2Fwp-content%2Fuploads%2F2017%2F10%2Fkfc.jpg&f=1&nofb=1&ipt=83571c81ece60eae4693cd0d86d267a339ae59a8f12d19913250d57a31342cbc&ipo=images" />
+                <img :src="`./products/${product.Codigo}.png`" />
               </span>
               <div class="product-details">
                 <span>
@@ -33,6 +33,10 @@
                     <fa icon="plus-circle"></fa>
                   </button>
                 </span>
+                <!-- <MinusPlusButton 
+                  :quantity="product.quantity" 
+                  :price="product.Venda"
+                /> -->
               </div>
             </div>
             <hr/>
@@ -43,45 +47,36 @@
         <h4>Total do Pedido:</h4>
         <span class="total">{{ formatValue(orderTotal) }}</span>
       </div>
-      <div class="btn-group">
-        <button 
-          class="btn-add" 
-          @click="cleanBag"
-        >
-          Finalizar Pedido
-        </button>
-      </div>
+      <Button 
+        :text="'Finalizar Pedido'"
+        @click="cleanBag"
+      />
     </div>
     <div class="no-products" v-else>
       <span>Nenhum produto adicionado. 😕</span>
-      <div class="btn-group">
-        <button class="btn-add" @click="redirect">Voltar</button>
-      </div>
+      <Button 
+        text="Voltar"
+        @click="redirect"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import { Tray } from '@/components/Tray.vue'
-
+import { formatValue } from '@/utils/functions'
+import { Tray }  from '@/components/Tray.vue'
+import Button from '@/components/Button.vue'
+import MinusPlusButton from '@/components/MinusPlusButton.vue'
 export default {
   components: {
     Tray,
+    Button,
+    MinusPlusButton
   },
 
   methods: {
-    formatValue(value) {
-      let newValue = value
-
-      if (newValue !== null) {
-        newValue = 'R$ ' + parseInt(value).toFixed(2).toString().replace('.', ',')
-      } else {
-        newValue = 'valor idisponivel no momento'
-      }
-
-      return newValue
-    },
+    formatValue,
 
     async cleanBag() {
       this.$store.dispatch('cleanBag')
@@ -120,7 +115,7 @@ export default {
   }
 
   .container ul {
-    overflow: scroll;
+    overflow-y: scroll;
     max-height: 70vh;
     height: 100%;
   }

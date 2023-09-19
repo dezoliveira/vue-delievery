@@ -16,13 +16,16 @@
             }
           "
         >
-          <div class="card" :class="{ inBag : isInBag(product) }" @click="preOrder(product)"> 
+          <div class="card" 
+            :class="{ inBag : isInBag(product) }" 
+            @click="preOrder(product)"
+          > 
             <div class="card-header">
               
             </div>
             <div class="card-body">
               <span class="product-img">
-                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.portaldofranchising.com.br%2Fwp-content%2Fuploads%2F2017%2F10%2Fkfc.jpg&f=1&nofb=1&ipt=83571c81ece60eae4693cd0d86d267a339ae59a8f12d19913250d57a31342cbc&ipo=images" />
+                <img :src="`./products/${product.Codigo}.png`" />
               </span>
               <div class="product-details">
                 <span>{{ product.Descricao }}</span>
@@ -52,6 +55,7 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+import { formatValue } from '@/utils/functions'
 
 export default {
   props: {
@@ -59,17 +63,7 @@ export default {
   },
 
   methods: {
-    formatValue(value) {
-      let newValue = value
-
-      if (newValue !== null) {
-        newValue = 'R$ ' + parseInt(value).toFixed(2).toString().replace('.', ',')
-      } else {
-        newValue = 'valor idisponivel no momento'
-      }
-
-      return newValue
-    },
+    formatValue,
 
     preOrder(product) {
       this.$store.dispatch('preOrder', product)
@@ -131,6 +125,14 @@ export default {
 .card-body .product-img {
   min-width: 60px;
   max-width: 60px;
+  min-height: 60px;
+  max-height: 60px;
+  background-color: #e0d14b;
+
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .card-body .product-img img {

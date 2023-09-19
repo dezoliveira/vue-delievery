@@ -28,7 +28,9 @@
         <i>
           <fa icon="bag-shopping" />
         </i>
-        <span class="bag-quantity">{{ this.productsInBag.length }}</span>
+        <span class="bag-quantity">
+          {{ this.productsInBag.length }}
+        </span>
       </router-link>
     </nav>
   </navbar>

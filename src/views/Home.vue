@@ -1,9 +1,6 @@
 <template>
   <Hero />
   <Accordion />
-  <div v-for="product in products" :key="product.Codigo">
-    <h1>product.Descricao</h1>
-  </div>
 </template>
 
 <script>
@@ -15,12 +12,6 @@ export default {
   components: {
     Hero,
     Accordion,
-  },
-
-  data() {
-    return {
-      
-    }
   },
 
   mounted() {
