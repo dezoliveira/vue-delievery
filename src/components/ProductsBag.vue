@@ -5,38 +5,32 @@
         <li v-for="product in productsInBag" :key="product.Codigo">
           <Tray>
             <div class="bag-list">
-              <span class="product-img">
-                <img :src="`./products/${product.Codigo}.png`" />
-              </span>
-              <div class="product-details">
+              <div class="product-line">
+                <span class="product-img">
+                  <img :src="`./products/${product.Codigo}.png`" />
+                </span>
                 <span>
                   {{ product.Descricao }}
                 </span>
-                <span>
-                  Valor: {{ formatValue(product.Venda) }}
-                </span>
-                <span>
-                  Quantidade: {{ product.quantity }}
-                </span>
-                <span>
-                  <h4>Total: {{ formatValue(product.quantity * product.Venda) }}</h4>
-                </span>
               </div>
-              <div class="values">
-                <span @click.prevent="this.$store.dispatch('removeFromBag', product.Codigo)" class="">Remover</span>
-                <span class="quantity">
-                  <button class="minus" :disabled="product.quantity <= 1" @click="product.quantity--">
-                    <fa icon="minus-circle"></fa>
-                  </button>
-                  <label :v-model="quantity">{{ product.quantity }}</label>
-                  <button class="plus" :disabled="product.quantity >= 100" @click="product.quantity++">
-                    <fa icon="plus-circle"></fa>
-                  </button>
-                </span>
-                <!-- <MinusPlusButton 
+              <div class="product-details">
+                <div class="productx">
+                  <span>
+                    Valor: {{ formatValue(product.Venda) }}
+                  </span>
+                  <span>
+                    Quantidade: {{ product.quantity }}
+                  </span>
+                  <span>Total:</span>
+                </div>
+                <MinusPlusButton 
+                  @increase="product.quantity++"
+                  @decrease="product.quantity--"
                   :quantity="product.quantity" 
                   :price="product.Venda"
-                /> -->
+                />
+              </div>
+              <div class="values">
               </div>
             </div>
             <hr/>
@@ -45,7 +39,7 @@
       </ul>
       <div class="totalOrder">
         <h4>Total do Pedido:</h4>
-        <span class="total">{{ formatValue(orderTotal) }}</span>
+        <span class="total">{{formatValue(orderTotal)}}</span>
       </div>
       <Button 
         :text="'Finalizar Pedido'"
@@ -99,7 +93,7 @@ export default {
         total += item.Venda * item.quantity
       });
 
-      return total
+      return total 
     }
   },
 }
@@ -122,28 +116,43 @@ export default {
 
   .bag-list {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    width: 100vw;
+    flex-direction: column;
     padding: 15px;
     gap: 15px;
   }
 
+  .bag-list .product-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   .bag-list .product-img {
-    min-width: 50px;
-    max-width: 50px;
+    width: min(80px, 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .bag-list .product-img img {
+    width: 100%;
     border-radius: 50%;
   }
 
-  .bag-list .product-details {
+  .bag-list .product-details  {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
+    align-items: flex-end;
+    justify-content: space-between;
     flex-wrap: wrap;
     width: 100%;
+  }
+
+  .productx {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .bag-list .product-details small{
@@ -153,6 +162,10 @@ export default {
   .values {
     min-width: 70px;
     max-width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
 
   .values .quantity {

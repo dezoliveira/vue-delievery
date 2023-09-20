@@ -4,7 +4,7 @@
       <button 
         class="minus" 
         :disabled="quantity <= 1" 
-        @click="quantity--"
+        @click="$emit('decrease', -1)"
       >
         <fa icon="minus-circle"></fa>
       </button>
@@ -12,13 +12,13 @@
       <button 
         class="plus" 
         :disabled="quantity >= 100" 
-        @click="quantity++"
+        @click="$emit('increase', +1)"
       >
         <fa icon="plus-circle"></fa>
       </button>
     </span>
     <span>
-      <h4>{{ formatValue(quantity * price) }}</h4>
+      <h4> {{ formatValue(quantity * price) }}</h4>
     </span>
   </div>
 </template>
@@ -29,7 +29,7 @@ export default {
   props:['quantity','price'],
 
   methods: {
-    formatValue
+    formatValue,
   }
 }
 </script>

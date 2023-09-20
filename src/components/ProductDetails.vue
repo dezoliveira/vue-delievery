@@ -11,6 +11,8 @@
         <h1><strong>{{ product.Descricao }}</strong></h1>
         <p class="observation">{{ product.Observacao  }}</p>
         <MinusPlusButton 
+          @increase="quantity++"
+          @decrease="quantity--"
           :quantity="quantity"
           :price="product.Venda"
         />
