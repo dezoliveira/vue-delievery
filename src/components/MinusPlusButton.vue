@@ -41,6 +41,13 @@ export default {
   gap: 10px;
 }
 
+.values {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .quantity button {
   font-size: 25px;
 }

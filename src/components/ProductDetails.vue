@@ -16,6 +16,15 @@
           :quantity="quantity"
           :price="product.Venda"
         />
+        <span class="text-area">
+          <label>Observação:</label>
+          <textarea 
+            v-model="observation" 
+            cols="30" 
+            rows="4"
+          >
+          </textarea>
+        </span>
         <Button 
           text="Adicionar"
           @click="addToBag(product)"
@@ -44,13 +53,14 @@ export default {
   data() {
     return {
       quantity: 1,
+      observation: ''
     }
   },
 
   methods: {
     addToBag(product) {
       product.quantity = this.quantity
-      console.log(product)
+      product.observation = this.observation
       this.$store.dispatch('addToBag', product)
       this.redirect()
     },
@@ -102,49 +112,38 @@ export default {
     text-align: left;
   }
 
-  .form .values {
+  .form .observation {
+    max-height: 120px;
+    min-height: 120px;
+    overflow-x: scroll;
+  }
+
+  .form .text-area {
     width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    position: relative;
   }
 
-  /* <!-- * Movido para component Tray --> */
-
-  /*
-  .form .values .quantity {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  .form .text-area textarea {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #94a3b8;
+    border-radius: 5px;
   }
 
-  .form .values .quantity button {
-    font-size: 25px;
+  .form .text-area textarea:focus {
+    outline: none !important;
+    border:1px solid #10b981;
   }
 
-  .form .values .quantity button.plus {
-    color: #16a34a;
-
-    / firefox /
-    border: 0;
-    background: none;
-  }
-
-  .form .values .quantity button.minus {
-    color: #dc2626;
-
-    / firefox /
-    border: 0;
-    background: none;
-  }
-
-  .form .observation {
-    / min-height: 70px;
-    max-height: 70px; /
-    font-size: 15px;
-  }
-
-  */
-
-  
+  .form .text-area label {
+    position: absolute;
+    left: 10px;
+    top: -15px;
+    background-color: #fff;
+    font-size: 14px;
+    padding: 5px;
+  }  
 </style>

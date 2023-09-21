@@ -35,7 +35,11 @@
               </div>
             </div>
             <div class="card-footer">
-              <span 
+              <RemoveButton 
+                v-if="isInBag(product)"
+                @click.prevent="removeFromBag(product.Codigo)"
+              />
+              <!-- <span 
                 class="removeTag" 
                 v-if="isInBag(product)"
                 @click.prevent="removeFromBag(product.Codigo)"
@@ -44,7 +48,7 @@
                 <i class="icon">
                   <fa icon="times" />
                 </i>   
-              </span>       
+              </span>        -->
             </div>
           </div>
         </router-link>
@@ -56,8 +60,13 @@
 <script>
 import { mapState } from 'vuex'
 import { formatValue } from '@/utils/functions'
+import RemoveButton from '@/components/RemoveButton.vue'
 
 export default {
+  components: {
+    RemoveButton
+  },
+
   props: {
     groupCodigo: null,
   },
@@ -181,24 +190,5 @@ hr {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-}
-
-.removeTag {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  background: red;
-  padding: 4px 12px;
-  color: #fff;
-  border-radius: 15px;
-}
-
-.removeTag small {
-  font-size: 70%;
-}
-
-.removeTag i {
-  font-size: 14px;
 }
 </style>

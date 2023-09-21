@@ -5,7 +5,7 @@
         <li v-for="product in productsInBag" :key="product.Codigo">
           <Tray>
             <div class="bag-list">
-              <div class="product-line">
+              <div class="product-summary">
                 <span class="product-img">
                   <img :src="`./products/${product.Codigo}.png`" />
                 </span>
@@ -14,7 +14,7 @@
                 </span>
               </div>
               <div class="product-details">
-                <div class="productx">
+                <div class="product-values">
                   <span>
                     Valor: {{ formatValue(product.Venda) }}
                   </span>
@@ -23,14 +23,18 @@
                   </span>
                   <span>Total:</span>
                 </div>
-                <MinusPlusButton 
-                  @increase="product.quantity++"
-                  @decrease="product.quantity--"
-                  :quantity="product.quantity" 
-                  :price="product.Venda"
-                />
-              </div>
-              <div class="values">
+                <div class="values">
+                  <RemoveButton
+                    class="float"
+                    @click.prevent="this.$store.dispatch('removeFromBag', product.Codigo)" 
+                  />
+                  <MinusPlusButton 
+                    @increase="product.quantity++"
+                    @decrease="product.quantity--"
+                    :quantity="product.quantity" 
+                    :price="product.Venda"
+                  />
+                </div>
               </div>
             </div>
             <hr/>
@@ -62,10 +66,12 @@ import { formatValue } from '@/utils/functions'
 import { Tray }  from '@/components/Tray.vue'
 import Button from '@/components/Button.vue'
 import MinusPlusButton from '@/components/MinusPlusButton.vue'
+import RemoveButton from '@/components/RemoveButton.vue'
 export default {
   components: {
     Tray,
     Button,
+    RemoveButton,
     MinusPlusButton
   },
 
@@ -121,9 +127,10 @@ export default {
     flex-direction: column;
     padding: 15px;
     gap: 15px;
+    position: relative;
   }
 
-  .bag-list .product-line {
+  .bag-list .product-summary {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -149,7 +156,7 @@ export default {
     width: 100%;
   }
 
-  .productx {
+  .bag-list .product-details .product-values {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -157,59 +164,6 @@ export default {
 
   .bag-list .product-details small{
     font-size: 12px;
-  }
-
-  .values {
-    min-width: 70px;
-    max-width: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-
-  .values .quantity {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-  }
-
-  .values .quantity button {
-    font-size: 20px;
-  }
-
-  .values .quantity button.plus {
-    color: #16a34a;
-
-    /* firefox */
-    border: 0;
-    background: none;
-  }
-
-  .values .quantity button.minus {
-    color: #dc2626;
-
-    /* firefox */
-    border: 0;
-    background: none;
-  }
-
-  .btn-group {
-    padding: 15px;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-  }
-
-  .btn-add {
-    background-color: #10b981;
-    width: 100%;
-    color: #fff;
-    border-radius: 5px;
-    padding: 10px 10px;
-    border: 0;
   }
 
   hr {
@@ -231,5 +185,19 @@ export default {
     justify-content: center;
     height: 100vw;
     padding: 15px;
+  }
+
+  .values {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: column;
+  }
+
+  .float {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 18px;
   }
 </style>
