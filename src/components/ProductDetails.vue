@@ -6,7 +6,16 @@
         :key="product.Codigo"
       >
         <span class="product-img">
-          <img :src="`../details/${product.Codigo}.png`" />
+          <img 
+            v-if="this.isLoaded"
+            :src="`../details/${product.Codigo}.png`"
+            @load="onImgLoad" 
+          />
+          <img 
+            v-else
+            src="../assets/images/logo_default.jpg"
+            @load="onImgLoad" 
+          />
         </span>
         <h1><strong>{{ product.Descricao }}</strong></h1>
         <p class="observation">{{ product.Observacao  }}</p>
@@ -53,7 +62,8 @@ export default {
   data() {
     return {
       quantity: 1,
-      observation: ''
+      observation: '',
+      isLoaded: false
     }
   },
 
@@ -67,6 +77,10 @@ export default {
 
     redirect() {
       this.$router.push({ name: 'home'})
+    },
+
+    async onImgLoad() {
+      this.isLoaded = true
     },
   },
 

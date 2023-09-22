@@ -25,7 +25,16 @@
             </div>
             <div class="card-body">
               <span class="product-img">
-                <img :src="`./products/${product.Codigo}.png`" />
+                <img 
+                  v-if="this.isLoaded"
+                  :src="`./products/${product.Codigo}.png`"
+                  @load="onImgLoad" 
+                />
+                <img 
+                  v-else 
+                  src="../assets/images/logo_default.jpg" 
+                  @load="onImgLoad"
+                />
               </span>
               <div class="product-details">
                 <span>{{ product.Descricao }}</span>
@@ -39,16 +48,6 @@
                 v-if="isInBag(product)"
                 @click.prevent="removeFromBag(product.Codigo)"
               />
-              <!-- <span 
-                class="removeTag" 
-                v-if="isInBag(product)"
-                @click.prevent="removeFromBag(product.Codigo)"
-              >
-                <small>Remover</small>
-                <i class="icon">
-                  <fa icon="times" />
-                </i>   
-              </span>        -->
             </div>
           </div>
         </router-link>
@@ -65,6 +64,12 @@ import RemoveButton from '@/components/RemoveButton.vue'
 export default {
   components: {
     RemoveButton
+  },
+  
+  data () {
+    return {
+      isLoaded : false
+    }
   },
 
   props: {
@@ -84,6 +89,10 @@ export default {
 
     removeFromBag(productId) {
       this.$store.dispatch('removeFromBag', productId)
+    },
+
+    async onImgLoad() {
+      this.isLoaded = true
     },
   },
 
