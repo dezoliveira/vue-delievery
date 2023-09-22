@@ -26,6 +26,10 @@ export default createStore({
       state.products = products
     },
 
+    loadBag(state, products) {
+      state.productsInBag = products
+    },
+
     loadCategories(state, categories) {
       state.categories = categories
     },
@@ -36,11 +40,17 @@ export default createStore({
 
     addToBag(state, product) {
       state.productsInBag.push(product)
+      
+      let setStorage = JSON.stringify(state.productsInBag)
+      localStorage.setItem("productsInBag", setStorage)
     },
 
     removeFromBag(state, productId) {
       let updatedBag = state.productsInBag.filter(item => productId != item.Codigo)
       state.productsInBag = updatedBag
+
+      let setStorage = JSON.stringify(state.productsInBag)
+      localStorage.setItem("productsInBag", setStorage)
     },
 
     preOrder(state, product) {
@@ -71,6 +81,13 @@ export default createStore({
       const req = await fetch(`${apiURL}/mercadorias.php?emp=1`)
       const data = await req.json()
       commit('loadProducts', data)
+    },
+
+    async loadBag({ commit }) {
+      let getStorage = localStorage.getItem("productsInBag")
+      if (getStorage){
+        commit('loadBag', JSON.parse(getStorage))
+      }
     },
 
     async loadCategories({ commit }) {

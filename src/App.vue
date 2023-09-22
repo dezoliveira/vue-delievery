@@ -23,6 +23,7 @@ export default {
   //speedUp
   beforeCreate() {
     this.$store.dispatch('loadProducts')
+    this.$store.dispatch('loadBag')
     this.$store.dispatch('loadCategories')
     this.$store.dispatch('loadGroups')
     this.$store.dispatch('loadCompany')

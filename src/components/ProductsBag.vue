@@ -138,6 +138,7 @@ export default {
 
   .bag-list .product-img {
     width: min(80px, 80px);
+    height: min(80px, 80px);
     display: flex;
     align-items: center;
     justify-content: center;
