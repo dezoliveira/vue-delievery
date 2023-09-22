@@ -14,14 +14,8 @@ export default {
     Accordion,
   },
 
-  data() {
-    return {
-    
-    }
-  },
-
   mounted() {
-
+    window.scrollTo(0, 0)
   }
 }
 </script>

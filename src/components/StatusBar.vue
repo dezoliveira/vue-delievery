@@ -1,9 +1,8 @@
 <template>
   <div 
     class="hero-status"
-    v-for="stat in status"
-    :key="stat.id"
-  >
+    v-for="status in dailyStatus"
+    :key="status.id">
     <div class="status"> 
       <span 
         v-if="this.isOpen"
@@ -24,7 +23,7 @@
         <i>
           <fa icon="motorcycle" />
         </i>
-        {{ flagToString(stat.ativaentrega) }}
+        {{ flagToString(status.ativaentrega) }}
       </label>
     </span>
     <span class="withdraw">
@@ -33,7 +32,7 @@
         <i>
           <fa icon="person-walking" />
         </i>
-        {{ flagToString(stat.AgendaPedido) }}
+        {{ flagToString(status.AgendaPedido) }}
       </label>
     </span>
     <span class="time">
@@ -42,7 +41,7 @@
         <i>
           <fa icon="clock" />
         </i>
-        {{ stat.tempoentrega }}
+        {{ status.tempoentrega }}
       </label>
     </span>
     <Badge 
@@ -51,7 +50,9 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import Badge from './Badge.vue'
+
 export default {
   components: {
     Badge
@@ -59,47 +60,49 @@ export default {
 
   data () {
     return {
-      params : [],
-      status : [],
       isOpen: false,
       isLoaded: false, 
-      API_URL : ''
     }
   },
 
   methods: {
-    async loadParams() {
-      const req = await fetch(`${this.API_URL}/parametros.php?emp=1`)
-      const data = await req.json()
-      console.log(data)
-      this.params = data
-      this.todayStatus(data)
+    flagToString(flag) {
+      const flags = {
+        'S' : 'Sim',
+        'N' : 'Não'
+      }[flag]
+      
+      return flags
     },
+  },
 
-    async todayStatus(data) {
+  computed: {
+    ...mapState([
+      'params'
+    ]),
+
+    dailyStatus() {
+      let params = this.params
       let today = new Date()
       let day = today.getDay()
       let status = []
       const daysOfWeek = []
 
-      for (let d in data) {
-        daysOfWeek.push(data[d].dia)
+      for (let p in params) {
+        daysOfWeek.push(params[p].dia)
       }
 
-      status = data.filter(
+      status = params.filter(
         (x) => (x.dia === daysOfWeek[day])
       )
 
-      this.status = status
-      this.hourStatus(status)
-      console.log(status)
+      return status
     },
 
-    async hourStatus(status) {
-      let today = new Date()
+    openingTime() {
       let timeNow = today.toLocaleTimeString()
-      let open = status[0].abertura
-      let closed = status[0].fechamento
+      let open = this.status.abertura
+      let closed = this.status.fechamento
 
       if (parseInt(timeNow) > parseInt(open) && 
           parseInt(timeNow) < parseInt(closed)
@@ -108,23 +111,8 @@ export default {
       } else {
         this.isOpen = false
       }
-    },
-
-    flagToString(flag) {
-      const flags = {
-        'S' : 'Sim',
-        'N' : 'Não'
-      }[flag]
-      
-      return flags
     }
-
   },
-
-  mounted() {
-    this.API_URL = process.env.VUE_APP_API_URL
-    this.loadParams()
-  }
 }
 </script>
 <style>

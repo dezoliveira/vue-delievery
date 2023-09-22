@@ -1,53 +1,94 @@
 <template>
   <div class="container">
-    <span class="product-img">
-      <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.portaldofranchising.com.br%2Fwp-content%2Fuploads%2F2017%2F10%2Fkfc.jpg&f=1&nofb=1&ipt=83571c81ece60eae4693cd0d86d267a339ae59a8f12d19913250d57a31342cbc&ipo=images" />
-    </span>
     <Tray>
-      <!-- <form class="form" @submit.prevent="handleSubmit(id)"> -->
-      <div class="form">
-        <h1><strong>Chicken Especial</strong></h1>
-        <p>Balde de galinha com tempero de alecrim especial sabor cebola caramelizada.</p>
-        <div class="values">
-          <span class="quantity">
-            <button class="minus" :disabled="quantity <= 1" @click="quantity--">
-              <fa icon="minus-circle"></fa>
-            </button>
-            <label :v-model="quantity">{{ quantity }}</label>
-            <button class="plus" :disabled="quantity >= 100" @click="quantity++">
-              <fa icon="plus-circle"></fa>
-            </button>
-          </span>
-          <span>
-            <h4>16.00</h4>
-          </span>
-        </div>
-        <button class="btn-add" @click="handleSubmit(id)">Adicionar</button>
+      <div class="form" 
+        v-for="product in preOrder" 
+        :key="product.Codigo"
+      >
+        <span class="product-img">
+          <img 
+            v-if="this.isLoaded"
+            :src="`../details/${product.Codigo}.png`"
+            @load="onImgLoad" 
+          />
+          <img 
+            v-else
+            src="../assets/images/logo_default.jpg"
+            @load="onImgLoad" 
+          />
+        </span>
+        <h1><strong>{{ product.Descricao }}</strong></h1>
+        <p class="observation">{{ product.Observacao  }}</p>
+        <MinusPlusButton 
+          @increase="quantity++"
+          @decrease="quantity--"
+          :quantity="quantity"
+          :price="product.Venda"
+        />
+        <span class="text-area">
+          <label>Observação:</label>
+          <textarea 
+            v-model="observation" 
+            cols="30" 
+            rows="4"
+          >
+          </textarea>
+        </span>
+        <Button 
+          text="Adicionar"
+          @click="addToBag(product)"
+        />
       </div>
-      <!-- </form> -->
     </Tray>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import Tray from './Tray.vue';
+import Button from './Button.vue'
+import MinusPlusButton from '@/components/MinusPlusButton.vue'
+
 export default {
   name: 'ProductDetails',
   components: {
-    Tray
+    Tray,
+    Button,
+    MinusPlusButton
   },
-
+  
   props: ['id'],
+
   data() {
     return {
       quantity: 1,
+      observation: '',
+      isLoaded: false
     }
   },
 
   methods: {
-    handleSubmit(id){
-      alert(id)
+    addToBag(product) {
+      product.quantity = this.quantity
+      product.observation = this.observation
+      this.$store.dispatch('addToBag', product)
+      this.redirect()
     },
+
+    redirect() {
+      this.$router.push({ name: 'home'})
+    },
+
+    async onImgLoad() {
+      this.isLoaded = true
+    },
+  },
+
+  computed: {
+    ...mapState([
+      'preOrder',
+      'productsInBag'
+    ])
   }
 }
 </script>
@@ -59,7 +100,8 @@ export default {
     align-items: center;
     justify-content: flex-start;
     /* gap: 10px; */
-    height: 100%;
+    /* height: 100%; */
+    height: 100vw;
     padding: 18px;
   }
 
@@ -84,36 +126,38 @@ export default {
     text-align: left;
   }
 
-  .form .values {
+  .form .observation {
+    max-height: 120px;
+    min-height: 120px;
+    overflow-x: scroll;
+  }
+
+  .form .text-area {
     width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    position: relative;
   }
 
-  .form .values .quantity {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  .form .text-area textarea {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #94a3b8;
+    border-radius: 5px;
   }
 
-  .form .values .quantity button {
-    font-size: 25px;
+  .form .text-area textarea:focus {
+    outline: none !important;
+    border:1px solid #10b981;
   }
 
-  .form .values .quantity button.plus {
-    color: #16a34a;
-
-    /* firefox */
-    border: 0;
-    background: none;
-  }
-
-  .form .values .quantity button.minus {
-    color: #dc2626;
-
-    /* firefox */
-    border: 0;
-    background: none;
-  }
+  .form .text-area label {
+    position: absolute;
+    left: 10px;
+    top: -15px;
+    background-color: #fff;
+    font-size: 14px;
+    padding: 5px;
+  }  
 </style>

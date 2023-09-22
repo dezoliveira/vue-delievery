@@ -12,102 +12,106 @@
               name: 'AddProducts', 
               params: { 
                 id: product.Codigo,
-                descricao: product.Descricao, 
-              } 
+              },
             }
           "
         >
-          <div class="card">
+          <div class="card" 
+            :class="{ inBag : isInBag(product) }" 
+            @click="preOrder(product)"
+          > 
             <div class="card-header">
               
             </div>
             <div class="card-body">
               <span class="product-img">
-                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.portaldofranchising.com.br%2Fwp-content%2Fuploads%2F2017%2F10%2Fkfc.jpg&f=1&nofb=1&ipt=83571c81ece60eae4693cd0d86d267a339ae59a8f12d19913250d57a31342cbc&ipo=images" />
+                <img 
+                  v-if="this.isLoaded"
+                  :src="`./products/${product.Codigo}.png`"
+                  @load="onImgLoad" 
+                />
+                <img 
+                  v-else 
+                  src="../assets/images/logo_default.jpg" 
+                  @load="onImgLoad"
+                />
               </span>
               <div class="product-details">
                 <span>{{ product.Descricao }}</span>
-                <!-- <label>Observação:</label>
-                <span> 
-                  {{ 
-                    product.Observacao ? 
-                      product.Observacao 
-                    : 'Indisponível' 
-                  }} 
-                </span> -->
                 <span class="product-price">
                   {{ formatValue(product.Venda) }}
                 </span>
               </div>
             </div>
-            <!-- <div class="btn-group">
-              <router-link 
-                :to=" {name: 'AddProducts', params: {id: product.Codigo } }">
-                <button class="btn">Adicionar</button>
-              </router-link>
-              <button class="btn2">Detalhes</button>
-            </div> -->
+            <div class="card-footer">
+              <RemoveButton 
+                v-if="isInBag(product)"
+                @click.prevent="removeFromBag(product.Codigo)"
+              />
+            </div>
           </div>
-        </router-link>           
-      
+        </router-link>
         <hr v-show="groupCodigo === product.idgrupo"/>
       </li>
     </ul>
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
+import { formatValue } from '@/utils/functions'
+import RemoveButton from '@/components/RemoveButton.vue'
+
 export default {
+  components: {
+    RemoveButton
+  },
+  
+  data () {
+    return {
+      isLoaded : false
+    }
+  },
+
   props: {
     groupCodigo: null,
   },
 
-  data() {
-    return {
-      products : [],
-      API_URL : ''
-    }
-  },
-
   methods: {
-    async loadProducts() {
-      const req = await fetch(`${this.API_URL}/mercadorias.php?emp=1`)
-      const data = await req.json()
-      this.products = data
+    formatValue,
+
+    preOrder(product) {
+      this.$store.dispatch('preOrder', product)
     },
 
-    formatValue(value) {
-      let newValue = value
-
-      if (newValue !== null) {
-        newValue = 'R$ ' + parseInt(value).toFixed(2).toString().replace('.', ',')
-      } else {
-        newValue = 'valor idisponivel no momento'
-      }
-
-      return newValue
+    isInBag(product) {
+      return this.productsInBag.find(item => item.Codigo == product.Codigo)
     },
 
-    // handleSubmit(id) {
-    //   this.$router.push('/AddProducts/' + id)
-    // }
-  },
+    removeFromBag(productId) {
+      this.$store.dispatch('removeFromBag', productId)
+    },
 
-  mounted() {
-    this.API_URL = process.env.VUE_APP_API_URL
-    this.loadProducts()
+    async onImgLoad() {
+      this.isLoaded = true
+    },
   },
 
   computed: {
+    ...mapState([
+      'products', 
+      'productsInBag'
+    ]),
+
     activeProducts() {
       return this.products.filter((product) => {
         return product.idgrupo === this.groupCodigo
       })
-    }
+    },
   }
 
 }
 </script>
-<style>
+<style scoped>
 .card {
   display: flex;
   flex-direction: column;
@@ -139,6 +143,14 @@ export default {
 .card-body .product-img {
   min-width: 60px;
   max-width: 60px;
+  min-height: 60px;
+  max-height: 60px;
+  background-color: #e0d14b;
+
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .card-body .product-img img {
@@ -177,5 +189,15 @@ hr {
   color: #fff;
   border-radius: 5px;
   padding: 5px 10px;
+}
+
+.inBag {
+  border: 1px solid #4ade80;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 </style>

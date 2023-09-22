@@ -10,11 +10,11 @@
         class="accordion-item" 
         @click="toggleCollapse(category.id)"
       >
-        <i>
-          <fa v-if="collapse && activeItem === category.id" icon="chevron-down" />
-          <fa v-else icon="chevron-right" />
-        </i>
         <h4>{{category.descricao}}</h4>
+        <i>
+          <fa v-if="collapse && activeItem === category.id" icon="chevron-up" />
+          <fa v-else icon="chevron-down" />
+        </i>
       </div>
       <hr v-show="!collapse" />
       <div v-show="collapse && activeItem === category.id" class="accordion-collapse">
@@ -28,49 +28,42 @@
   </Tray>
 </template>
 <script>
-  import ProductList from './ProductList.vue'
-  import Tray from './Tray.vue'
+import { mapState } from 'vuex'
+import ProductList from './ProductList.vue'
+import Tray from './Tray.vue'
 
-  export default{
-    name: 'Accordion',
-    components: {
-      ProductList,
-      Tray
-    },
+export default{
+  name: 'Accordion',
+  components: {
+    ProductList,
+    Tray
+  },
 
-    data() {
-      return {
-        collapse: true,
-        activeItem: '1',
-        categories: [],
-        API_URL : ''
+  data() {
+    return {
+      collapse: true,
+      activeItem: '1',
+    }
+  },
+  
+  methods: {
+    toggleCollapse(categoryId) {
+      if(this.activeItem !== categoryId){
+        this.collapse = false
       }
+  
+      this.activeItem = categoryId
+      this.collapse = !this.collapse
     },
-    
-    methods: {
-      toggleCollapse(categoryId) {
-        if(this.activeItem !== categoryId){
-          this.collapse = false
-        }
-    
-        this.activeItem = categoryId
-        this.collapse = !this.collapse
-      },
+  },
 
-      async loadCategories() {
-        const req = await fetch(`${this.API_URL}/categorias.php?emp=1`)
-        const data = await req.json()
-        console.log(data)
-        this.categories = data
-      }
-    },
-
-    mounted() {
-      this.API_URL = process.env.VUE_APP_API_URL
-      this.loadCategories()
-    },
-
+  computed: {
+    ...mapState([
+      'categories'
+    ]),
   }
+
+}
 </script>
 <style scoped>
   /* <!-- * Movido para component Tray --> */
@@ -97,9 +90,10 @@
   .accordion-item {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 10px;
     padding: 10px 0;
+    width: 100%;
   }
 
   .accordion-item h4, i {

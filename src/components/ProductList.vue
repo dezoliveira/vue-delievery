@@ -16,12 +16,14 @@
       />
     </div>
   </div>
-  <v-else>
+  <!-- <v-else>
     Oops! nenhum produto a ser exibido 😢
-  </v-else>
+  </v-else> -->
 </template>
 <script>
+import { mapState } from 'vuex'
 import ProductCard from './ProductCard.vue'
+
 export default {
   components: {
     ProductCard
@@ -33,25 +35,15 @@ export default {
 
   data() {
     return {
-      groups : [],
-      API_URL : ''
+
     }
   },
 
-  methods: {
-    async loadGroups() {
-      const req = await fetch(`${this.API_URL}/grupos.php?emp=1`)
-      const data = await req.json()
-      this.groups = data
-    },
-  },
-
-  mounted() {
-    this.API_URL = process.env.VUE_APP_API_URL
-    this.loadGroups()
-  },
-
   computed: {
+    ...mapState([
+      'groups'
+    ]),
+
     activeGroups() {
       return this.groups.filter((group) => {
         return group.idcategoria === this.categoryId
