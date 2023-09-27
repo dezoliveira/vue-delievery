@@ -29,6 +29,12 @@ const routes = [
   },
 
   {
+    path: '/finisingOrder',
+    name: 'FinishingOrder',
+    component: () => import('@/views/FinishingOrder.vue')
+  },
+
+  {
     path: '/:catchAll(.*)',
     name: 'NotFound',
     component: () => import('@/views/NotFound.vue')
