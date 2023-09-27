@@ -1,6 +1,7 @@
 <template>
   <Modal 
-    v-show="showModal" 
+    v-show="showModal"
+    :children="data" 
     @close="toggleModal" 
   />
   <div class="hero">
@@ -50,7 +51,11 @@ export default {
   data() {
     return {
       showModal: false,
-      isLoaded: false,  
+      isLoaded: false,
+      data :  {
+        element : 'Table',
+        title: 'Horários'
+      }
     }
   },
 

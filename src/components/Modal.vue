@@ -7,25 +7,37 @@
         </i>
       </span>
       <h1 class="modal-title">
-        Horários
+        {{ children.title }}
       </h1>
       <div class="modal-body">
-        <!-- <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur, voluptates iusto? Voluptas atque id est quibusdam sint perspiciatis nobis temporibus saepe, distinctio explicabo facere nam rerum. A eum quasi cumque.</p> -->
-        <Table />
+        <Table v-show="renderChildren('Table')"/>
+        <!-- <Address refs="Address" v-show="renderChilren('Address')"/> -->
+        <SelectAddress v-show="renderChildren('SelectAddress')"/>
       </div>
     </div>
   </div>
 </template>
 <script>
 import Table from './Table.vue'
+// import Address from './Address.vue'
+import SelectAddress from '@/views/SelectAddress.vue'
+
 export default { 
   components: {
-    Table
+    Table,
+    // Address,
+    SelectAddress
   },
+
+  props:['children'],
 
   methods: {
     closeModal() {
       this.$emit('close')
+    },
+
+    renderChildren(el) {
+      return this.children.element === el 
     }
   },
 }
@@ -47,8 +59,9 @@ export default {
   .modal { 
     position: relative;
     width: 90%;
-    height: 90%;
-    padding: 15px;
+    padding: 30px;
+    /* height: 90%;
+    padding: 15px; */
     background-color: #fff;
 
     display: flex;

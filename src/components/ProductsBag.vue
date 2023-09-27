@@ -1,4 +1,9 @@
 <template>  
+  <Modal 
+    v-show="showModal"
+    :children="data"
+    @close="toggleModal"
+  />
   <div class="container">
     <div v-if="productsInBag.length">
       <ul>
@@ -47,7 +52,7 @@
       </div>
       <Button 
         :text="'Finalizar Pedido'"
-        @click="cleanBag"
+        @click="toggleModal"
       />
     </div>
     <div class="no-products" v-else>
@@ -67,12 +72,25 @@ import { Tray }  from '@/components/Tray.vue'
 import Button from '@/components/Button.vue'
 import MinusPlusButton from '@/components/MinusPlusButton.vue'
 import RemoveButton from '@/components/RemoveButton.vue'
+import Modal from '@/components/Modal.vue'
+
 export default {
   components: {
     Tray,
     Button,
     RemoveButton,
-    MinusPlusButton
+    MinusPlusButton,
+    Modal
+  },
+
+  data() {
+    return {
+      showModal : false,
+      data: {
+        element: 'SelectAddress',
+        title: 'Selecione o Endereço:'
+      }
+    }
   },
 
   methods: {
@@ -86,6 +104,10 @@ export default {
     async redirect() {
       this.$router.push({ name: 'home'})
     },
+
+    toggleModal() {
+      this.showModal = !this.showModal
+    }
   },
   
   computed: {
