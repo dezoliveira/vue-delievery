@@ -1,7 +1,7 @@
 <template>
   <Address
     @open="toggleMenu" 
-    v-show="!isShow"
+    v-show="isShow"
   />
   <Form 
     @open="toggleMenu" 
