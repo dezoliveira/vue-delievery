@@ -7,41 +7,22 @@
         </i>
       </span>
       <h1 class="modal-title">
-        {{ children.title }}
+        {{ title }}
       </h1>
       <div class="modal-body">
-        <div v-show="renderChildren('Table')">
-            <Table />
-        </div>
-        <div v-show="renderChildren('SelectAddress')">
-            <SelectAddress />
-        </div>
+        <slot></slot>
       </div>
     </div>
   </div>
 </template>
 <script>
-import Table from './Table.vue'
-// import Address from './Address.vue'
-import SelectAddress from '@/views/SelectAddress.vue'
-
 export default { 
-  components: {
-    Table,
-    // Address,
-    SelectAddress
-  },
-
-  props:['children'],
+  props:['title'],
 
   methods: {
     closeModal() {
       this.$emit('close')
     },
-
-    renderChildren(el) {
-      return this.children.element === el 
-    }
   },
 }
 </script>

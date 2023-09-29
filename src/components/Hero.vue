@@ -1,9 +1,11 @@
 <template>
   <Modal 
-    v-show="showModal"
-    :children="data" 
-    @close="toggleModal" 
-  />
+    v-show="showModal" 
+    :title="this.title" 
+    @close="toggleModal"
+  >
+    <Table />
+  </Modal>
   <div class="hero">
     <div class="hero-image">
 
@@ -52,10 +54,7 @@ export default {
     return {
       showModal: false,
       isLoaded: false,
-      data :  {
-        element : 'Table',
-        title: 'Horários'
-      }
+      title: 'Horários'
     }
   },
 

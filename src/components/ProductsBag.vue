@@ -1,13 +1,19 @@
 <template>  
   <Modal 
-    v-show="showModal"
-    :children="data"
+    style="bottom: 0; position: absolute;"
+    v-show="showModal" 
+    :title="this.title" 
     @close="toggleModal"
-  />
+  >
+    <SelectAddress />
+  </Modal>
   <div class="container">
     <div v-if="productsInBag.length">
       <ul>
-        <li v-for="product in productsInBag" :key="product.Codigo">
+        <li 
+          v-for="product in productsInBag" 
+          :key="product.Codigo"
+        >
           <Tray>
             <div class="bag-list">
               <div class="product-summary">
@@ -73,6 +79,7 @@ import Button from '@/components/Button.vue'
 import MinusPlusButton from '@/components/MinusPlusButton.vue'
 import RemoveButton from '@/components/RemoveButton.vue'
 import Modal from '@/components/Modal.vue'
+import SelectAddress from '@/views/SelectAddress.vue'
 
 export default {
   components: {
@@ -80,16 +87,14 @@ export default {
     Button,
     RemoveButton,
     MinusPlusButton,
-    Modal
+    Modal,
+    SelectAddress
   },
 
   data() {
     return {
       showModal : false,
-      data: {
-        element: 'SelectAddress',
-        title: 'Selecione o Endereço:'
-      }
+      title: 'Selecione o Endereço:'
     }
   },
 
