@@ -10,9 +10,12 @@
         {{ children.title }}
       </h1>
       <div class="modal-body">
-        <Table v-show="renderChildren('Table')"/>
-        <!-- <Address refs="Address" v-show="renderChilren('Address')"/> -->
-        <SelectAddress v-show="renderChildren('SelectAddress')"/>
+        <div v-show="renderChildren('Table')">
+            <Table />
+        </div>
+        <div v-show="renderChildren('SelectAddress')">
+            <SelectAddress />
+        </div>
       </div>
     </div>
   </div>
