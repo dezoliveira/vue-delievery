@@ -12,7 +12,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .btn-group {
   padding: 15px;
   position: fixed;

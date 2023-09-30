@@ -54,9 +54,13 @@ export default {
     justify-content: space-around;
     gap: 15px;
     /* animation: open 0.5s; */
-  }  
+  }
+  
+  .modal-body {
+    width: 100%;
+  }
 
-    .modal .icon i {
+  .modal .icon i {
     position: absolute;
     top: 5px;
     right: 10px;
