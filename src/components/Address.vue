@@ -53,7 +53,6 @@ export default {
   }
 
   .inputs input {
-    border: 1px solid #444;
     padding: 4px 10px;
   }
 </style>

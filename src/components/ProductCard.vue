@@ -24,6 +24,14 @@
               
             </div>
             <div class="card-body">
+              <span class="vertical-text" 
+                v-if="isInBag(product)"
+              >
+                <p>In Bag</p>
+                <i class="icon">
+                  <fa icon="bag-shopping"></fa>
+                </i>
+              </span>
               <span class="product-img">
                 <img 
                   v-if="this.isLoaded"
@@ -44,10 +52,12 @@
               </div>
             </div>
             <div class="card-footer">
-              <RemoveButton 
-                v-if="isInBag(product)"
-                @click.prevent="removeFromBag(product.Codigo)"
-              />
+              <div class="btn-group">
+                <RemoveButton 
+                  v-if="isInBag(product)"
+                  @click.prevent="removeFromBag(product.Codigo)"
+                />
+              </div>
             </div>
           </div>
         </router-link>
@@ -118,9 +128,11 @@ export default {
   min-width: 100%;
   padding: 10px;
   background-color: #F5F5F5;
-  border-radius: 15px;
+  /*  border-radius: 15px; */
+  border-radius: 5px;
   color: black;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  
 }
 
 .card-body {
@@ -167,11 +179,9 @@ hr {
 }
 
 .btn-group {
-  width: 100%;
-  padding: 10px 0;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
 }
 
 .btn-add {
@@ -192,7 +202,28 @@ hr {
 }
 
 .inBag {
-  border: 1px solid #4ade80;
+  border-left: 15px solid #4ade80;
+  position: relative;
+}
+
+.vertical-text {
+  color: #fff;
+  transform: rotate(-90deg);
+  max-height: 100px;
+  min-height: 100px;
+  position: absolute;
+  left: 0;
+  display: flex;
+  gap: 5px;
+}
+
+.vertical-text p {
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+.vertical-text i {
+  font-size: 12px;
 }
 
 .card-footer {
