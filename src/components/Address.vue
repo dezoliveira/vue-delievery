@@ -6,7 +6,11 @@
         <label>
           Retirar:
         </label>
-        <input type="text" />
+        <router-link :to="{
+          name: 'finisingOrder'
+        }">
+          <input type="text" />
+        </router-link>
       </span>
       <span>
         <label>

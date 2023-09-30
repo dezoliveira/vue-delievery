@@ -30,7 +30,7 @@ const routes = [
 
   {
     path: '/finisingOrder',
-    name: 'FinishingOrder',
+    name: 'finisingOrder',
     component: () => import('@/views/FinishingOrder.vue')
   },
 

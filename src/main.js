@@ -4,12 +4,39 @@ import '../src/main.css'
 
 //Font Awesome
 import { Library, library } from '@fortawesome/fontawesome-svg-core'
-import { faChevronUp, faChevronDown, faClock, faLocationDot, faClose, faMotorcycle, faPersonWalking, faArrowLeft, faPlusCircle, faMinusCircle, faBagShopping } from '@fortawesome/free-solid-svg-icons'
+import { 
+  faChevronUp, 
+  faChevronDown, 
+  faClock, 
+  faLocationDot, 
+  faClose, 
+  faMotorcycle, 
+  faPersonWalking, 
+  faArrowLeft, 
+  faPlusCircle, 
+  faMinusCircle, 
+  faBagShopping, 
+  faMapPin 
+} from '@fortawesome/free-solid-svg-icons'
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import router from '@/router'
 import store from '@/store'
 
-library.add(faChevronUp, faChevronDown, faLocationDot, faClock, faClose, faMotorcycle, faPersonWalking, faArrowLeft, faPlusCircle, faMinusCircle, faBagShopping)
+library.add(
+  faChevronUp, 
+  faChevronDown, 
+  faLocationDot, 
+  faClock, 
+  faClose, 
+  faMotorcycle, 
+  faPersonWalking, 
+  faArrowLeft, 
+  faPlusCircle, 
+  faMinusCircle, 
+  faBagShopping,
+  faMapPin
+)
 
 createApp(App)
   .use(router)
