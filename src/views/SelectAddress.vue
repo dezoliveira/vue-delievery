@@ -1,12 +1,10 @@
 <template>
-  <Address
-    @open="toggleMenu" 
-    v-show="!isShow"
-  />
-  <Form 
-    @open="toggleMenu" 
-    v-show="isShow" 
-  />
+  <slot v-if="!isShow">
+    <Address @open="toggleMenu"/>
+  </slot>
+  <slot v-if="isShow">
+    <Form @open="toggleMenu"/>
+  </slot>
 </template>
 
 <script>
