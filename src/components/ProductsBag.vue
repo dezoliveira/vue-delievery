@@ -94,7 +94,7 @@ export default {
   data() {
     return {
       showModal : false,
-      title: 'Selecione o Endereço:'
+      title: 'Entregas'
     }
   },
 

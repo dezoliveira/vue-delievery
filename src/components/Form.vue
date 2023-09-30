@@ -59,6 +59,13 @@ export default {
 
   .form input {
     padding: 5px;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .form input:focus {
+    border:none;
+    outline: none;
+    border-bottom: 1px solid #10b981;
   }
 
   .selectBox select {
