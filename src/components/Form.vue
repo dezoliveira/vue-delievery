@@ -15,11 +15,14 @@
         <option value="4">Rua dos bobos nº 0</option>
       </select>
     </span>
-    <span>
-      <input v-model="cep" type="text" placeholder="Cep *" data-pattern="____-__-__" />
+    <span class="cep">
+      <input v-model="cep" :disabled="this.complete" class="{ disabled : this.complete}" type="text" placeholder="Cep *"  />
+      <i v-if="this.complete">
+        <fa icon="circle-check"/>
+      </i>
     </span>
     <input v-model="street" type="text" placeholder="Rua *"/>
-    <input v-model="number" type="text" placeholder="Numero *"/>
+    <input ref="number" model="number" type="text" placeholder="Numero *"/>
     <input v-model="complement" type="text" placeholder="Complemento *"/>
     <input v-model="district" type="text" placeholder="Bairro *"/>
     <input v-model="reference" type="text" placeholder="Ponto de Referência *"/>
@@ -38,7 +41,13 @@ export default {
 
   data() {
     return {
-    
+      cep : '',
+      street: '',
+      number: '',
+      complement: '',
+      district: '',
+      reference: '',
+      complete: false
     }
   },
 
@@ -46,13 +55,29 @@ export default {
     handleAddress() {
       alert('form submitted')
       this.$router.push({ name: 'finisingOrder' })
-    }
+    },
   },
 
   computed: {
     ...mapState([
-    'company'
+    'company',
+    'address'
     ]),
+  },
+
+  watch : {
+    cep() {
+      if (this.cep.length == 8){
+        let unMaskCep = this.cep.replace(/[-]/g, "")
+        if (this.$store.dispatch('loadAddress', unMaskCep)){
+          this.street = this.address.logradouro || ''
+          this.complement = this.address.complement || ''
+          this.district = this.address.bairro || ''
+          this.complete = true
+          this.$refs.number.focus()
+        }
+      }
+    }
   }
 }
 </script>
@@ -92,5 +117,18 @@ export default {
     position: relative;
     width: 100%;
     display: contents;
+  }
+
+  .disabled {
+    background: transparent;
+    opacity: 0.8;
+  }
+
+  .form .cep input {
+    width: 50%;
+  }
+
+  .form .cep i {
+    color: #4ade80;
   }
 </style>

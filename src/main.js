@@ -16,7 +16,8 @@ import {
   faPlusCircle, 
   faMinusCircle, 
   faBagShopping, 
-  faMapPin 
+  faMapPin, 
+  faCircleCheck
 } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -35,7 +36,8 @@ library.add(
   faPlusCircle, 
   faMinusCircle, 
   faBagShopping,
-  faMapPin
+  faMapPin,
+  faCircleCheck
 )
 
 createApp(App)
