@@ -10,7 +10,8 @@ export default createStore({
     categories : [],
     groups : [],
     productsInBag : [],
-    preOrder : []
+    preOrder : [],
+    address: []
   },
 
   mutations: {
@@ -51,6 +52,10 @@ export default createStore({
 
       let setStorage = JSON.stringify(state.productsInBag)
       localStorage.setItem("productsInBag", setStorage)
+    },
+
+    loadAddress(state, address) {
+      state.address = address
     },
 
     preOrder(state, product) {
@@ -100,6 +105,12 @@ export default createStore({
       const req = await fetch(`${apiURL}/grupos.php?emp=1`)
       const data = await req.json()
       commit('loadGroups', data)
+    },
+
+    async loadAddress({ commit }, cep) {
+      const req = await fetch(`http://viacep.com.br/ws/${cep}/json/`)
+      const data = await req.json()
+      commit('loadAddress', data)
     },
 
     addToBag({ commit }, product) {

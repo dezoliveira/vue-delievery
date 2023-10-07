@@ -25,9 +25,12 @@ export default {
 
   methods: {
     toggleMenu() {
+      if (this.isShow = true) 
+        this.isShow = false
       this.isShow = !this.isShow
     }
   },
+
 }
 </script>
 

@@ -31,6 +31,7 @@ const routes = [
   {
     path: '/finisingOrder',
     name: 'finisingOrder',
+    props: true,
     component: () => import('@/views/FinishingOrder.vue')
   },
 

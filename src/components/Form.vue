@@ -1,5 +1,5 @@
 <template>
-  <div class="form">
+  <form @submit.prevent="handleAddress" class="form">
     <span class="address">
       <i>
         <fa icon="map-pin"/>
@@ -15,13 +15,16 @@
         <option value="4">Rua dos bobos nº 0</option>
       </select>
     </span>
-    <input type="text" placeholder="Rua *"/>
-    <input type="text" placeholder="Numero *"/>
-    <input type="text" placeholder="Complemento *"/>
-    <input type="text" placeholder="Bairro *"/>
-    <input type="text" placeholder="Ponto de Referência *"/>
+    <span>
+      <input v-model="cep" type="text" placeholder="Cep *" data-pattern="____-__-__" />
+    </span>
+    <input v-model="street" type="text" placeholder="Rua *"/>
+    <input v-model="number" type="text" placeholder="Numero *"/>
+    <input v-model="complement" type="text" placeholder="Complemento *"/>
+    <input v-model="district" type="text" placeholder="Bairro *"/>
+    <input v-model="reference" type="text" placeholder="Ponto de Referência *"/>
     <Button :text="'Confirmar'"/>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -31,6 +34,19 @@ import Button from '@/components/Button.vue'
 export default {
   components: {
     Button
+  },
+
+  data() {
+    return {
+    
+    }
+  },
+
+  methods: {
+    handleAddress() {
+      alert('form submitted')
+      this.$router.push({ name: 'finisingOrder' })
+    }
   },
 
   computed: {
