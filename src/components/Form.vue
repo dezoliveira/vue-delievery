@@ -4,28 +4,38 @@
       <i>
         <fa icon="map-pin"/>
       </i>
-      <h1>{{company.Endereco}}</h1>
+      <h1>{{stringAddress}}</h1>
     </span>
     <span class="selectBox">
-      <select>
-        <option value="0">Meus Endereços</option>
-        <option value="1">Rua X, Bairro Y</option>
-        <option value="2">Avenida Z, Bairro A</option>
-        <option value="3">Rua das calçadas, 399</option>
-        <option value="4">Rua dos bobos nº 0</option>
-      </select>
+      <div v-if="this.address.length > 0">
+        <select v-for="(adds, i) in stringAddress" :key="x[i]">
+          <option value="0">Selecione um endereço</option>
+        </select>
+      </div>
     </span>
     <span class="cep">
-      <input v-model="cep" :disabled="this.complete" class="{ disabled : this.complete}" type="text" placeholder="Cep *"  />
+      <input 
+        v-model="cep" 
+        class="{ disabled : this.complete}" 
+        type="text" 
+        placeholder="Cep *"
+        :disabled="this.complete"   
+      />
       <i v-if="this.complete">
         <fa icon="circle-check"/>
       </i>
     </span>
-    <input v-model="street" type="text" placeholder="Rua *"/>
-    <input ref="number" model="number" type="text" placeholder="Numero *"/>
-    <input v-model="complement" type="text" placeholder="Complemento *"/>
-    <input v-model="district" type="text" placeholder="Bairro *"/>
-    <input v-model="reference" type="text" placeholder="Ponto de Referência *"/>
+    <input 
+      v-model="this.address.logradouro" 
+      @input="onValidate" 
+      ref=street 
+      type="text" 
+      placeholder="Rua *"
+    />
+    <input v-model="number" @input="onValidate" ref="number" type="text" placeholder="Numero *"/>
+    <input v-model="complement" @input="onValidate" ref="complement" type="text" placeholder="Complemento *"/>
+    <input v-model="this.address.bairro" @input="onValidate" ref="district" type="text" placeholder="Bairro *"/>
+    <input v-model="reference" @input="onValidate" ref="reference" type="text" placeholder="Ponto de Referência *"/>
     <Button :text="'Confirmar'"/>
   </form>
 </template>
@@ -47,7 +57,7 @@ export default {
       complement: '',
       district: '',
       reference: '',
-      complete: false
+      complete: false,
     }
   },
 
@@ -59,26 +69,38 @@ export default {
   },
 
   computed: {
-    ...mapState([
-    'company',
-    'address'
-    ]),
+    ...mapState(['company','address']),
+    
+    stringAddress() {
+      let text = 'Meu Endereço'
+      console.log(this.address.length)
+      if(this.address.length > 0){
+        text = `${this.address.logradouro} - ${this.address.bairro}`
+      }
+      return text
+    }
   },
 
   watch : {
     cep() {
-      if (this.cep.length == 8){
-        let unMaskCep = this.cep.replace(/[-]/g, "")
-        if (this.$store.dispatch('loadAddress', unMaskCep)){
-          this.street = this.address.logradouro || ''
-          this.complement = this.address.complement || ''
-          this.district = this.address.bairro || ''
-          this.complete = true
-          this.$refs.number.focus()
-        }
+      if (this.cep.length == 6)
+        this.cep += '-'
+
+      if (this.cep.length == 2)
+        this.cep += '.'
+
+      if (this.cep.length == 10){
+        let unMaskCep = this.cep.replace(/[-\.]/g, "")
+        console.log(unMaskCep)
+        this.$store.dispatch('loadAddress', unMaskCep)
+        // this.street = this.address.logradouro || ''
+        // this.complement = this.address.complement || ''
+        // this.district = this.address.bairro || ''
+        this.complete = true
+        this.$refs.number.focus()
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
