@@ -74,7 +74,7 @@ export default {
     stringAddress() {
       let text = 'Meu Endereço'
       console.log(this.address.length)
-      if(this.address.length > 0){
+      if(this.address.length != 0){
         text = `${this.address.logradouro} - ${this.address.bairro}`
       }
       return text
@@ -91,7 +91,6 @@ export default {
 
       if (this.cep.length == 10){
         let unMaskCep = this.cep.replace(/[-\.]/g, "")
-        console.log(unMaskCep)
         this.$store.dispatch('loadAddress', unMaskCep)
         // this.street = this.address.logradouro || ''
         // this.complement = this.address.complement || ''

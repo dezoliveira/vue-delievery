@@ -39,6 +39,10 @@ export default createStore({
       state.groups = groups
     },
 
+    loadAddress(state, address) {
+      state.address = address
+    },
+
     addToBag(state, product) {
       state.productsInBag.push(product)
       
@@ -52,10 +56,6 @@ export default createStore({
 
       let setStorage = JSON.stringify(state.productsInBag)
       localStorage.setItem("productsInBag", setStorage)
-    },
-
-    loadAddress(state, address) {
-      state.address = address
     },
 
     preOrder(state, product) {
